@@ -19,13 +19,14 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <div class="col-md-10">
-                {!! Form::open(['url' => 'search_affiliate', 'role' => 'form', 'class' => 'navbar-form navbar-left']) !!}
-            			<div class="form-group">
-            				<div class="col-md-12" data-toggle="tooltip" data-placement="bottom" data-original-title="Ingrese el número de Carnet del Afiliado">
-              					<input type="text" class="form-control" name="identity_card" size="10" style="font-size:20px" onkeyup = "this.value=this.value.toUpperCase()">
-              				</div>
-            			</div>
-	          			{!! Form::close() !!}
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Buscar Afiliado..."/>
+                      <span class="input-group-btn">
+                        <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                      </span>
+                    </div>
+                </form>
             </div>
             <ul class="nav navbar-nav">
                 <!-- Control Sidebar Toggle Button -->
