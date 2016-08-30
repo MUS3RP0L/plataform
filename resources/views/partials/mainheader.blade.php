@@ -18,16 +18,6 @@
 
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
-            <div class="col-md-10">
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Buscar Afiliado..."/>
-                      <span class="input-group-btn">
-                        <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-                      </span>
-                    </div>
-                </form>
-            </div>
             <ul class="nav navbar-nav">
                 <!-- Control Sidebar Toggle Button -->
                 <li>
