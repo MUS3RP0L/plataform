@@ -13,7 +13,11 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Inspire::class,
+
+        \Muserpol\Console\Commands\ImportPayroll::class,
+        \Muserpol\Console\Commands\CreateIpcRate::class,
+        \Muserpol\Console\Commands\CreateContributionRate::class,   
+        \Muserpol\Console\Commands\ImportReimbursement::class
     ];
 
     /**
