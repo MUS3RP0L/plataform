@@ -24,9 +24,14 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
-
         parent::boot($router);
+        $router->model('user', 'Muserpol\User');
+        $router->model('contribution_rate', 'Muserpol\ContributionRate');
+        $router->model('ipc_rate', 'Muserpol\IpcRate');
+        $router->model('base_wage', 'Muserpol\BaseWage');
+        $router->model('affiliate', 'Muserpol\Affiliate');
+        $router->model('direct_contribution', 'Muserpol\DirectContribution');
+        $router->model('voucher', 'Muserpol\Voucher');
     }
 
     /**
