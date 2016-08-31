@@ -4,9 +4,9 @@
 <body class="login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('/home') }}">Plataforma Virtual MUSERPOL</a>
-        </div><!-- /.login-logo -->
-
+            Plataforma Virtual MUSERPOL
+        </div>
+        
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <strong>Whoops!</strong> There were some problems with your input.<br><br>
