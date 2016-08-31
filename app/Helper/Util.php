@@ -7,31 +7,37 @@ class Util
 {
 	public static function FirstName($nom)
 	{
-		$noms = explode(" ", $nom);
-		if (count($noms) > 0) {
-			return $noms[0];
-		}
-		else{
-			return '';
+		if ($nom) {
+			$noms = explode(" ", $nom);
+			if (count($noms) > 0) {
+				return $noms[0];
+			}
+			else{
+				return '';
+			}
 		}
 	}
 
 	public static function SecondName($nom)
 	{
-		$noms = explode(" ", $nom);
-		if (count($noms) > 1) {
-			return $noms[1];
-		}
-		else{
-			return '';
+		if ($nom) {
+			$noms = explode(" ", $nom);
+			if (count($noms) > 1) {
+				return $noms[1];
+			}
+			else{
+				return '';
+			}
 		}
 	}
 
 	public static function RepeatedIdentityCard($identity_card)
 	{
-		if (strpos($identity_card, '-') !== false) {
-			$new_identity_card = explode("-", $identity_card);
-			return $new_identity_card[0];
+		if ($identity_card) {
+			if (strpos($identity_card, '-') !== false) {
+				$new_identity_card = explode("-", $identity_card);
+				return $new_identity_card[0];
+			}
 		}
 	}
 
@@ -107,9 +113,11 @@ class Util
 
 	public static function separateCode($code)
 	{
-		$number = explode("/", $code);
-		if ($number) {
-			return $number[0];
+		if ($code) {
+			$number = explode("/", $code);
+			if ($number) {
+				return $number[0];
+			}
 		}
 	}
 
@@ -220,7 +228,7 @@ class Util
 
 	public static function formatMoney($value)
 	{
-		if ($string) {
+		if ($value) {
 	    	$value = number_format($value, 2, '.', ',');
         	return $value;
 		}
@@ -384,37 +392,6 @@ class Util
 		$entity = $entity->getFullName();
 		return trim("$person $action $entity");
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	private static $UNIDADES = [
