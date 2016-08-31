@@ -10,12 +10,9 @@
                 <img src="{{asset('/img/default-50x50.gif')}}" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-                {{-- <p>{{ Auth::user()->name }}</p> --}}
-                <p>
-                    Ale Guis
-                </p>
+                <p>{{ Util::ucw(Auth::user()->first_name) }}</p>
                 <!-- Status -->
-                {{-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> --}}
+                <a href="#">{{ Auth::user()->role->name }}</a>
             </div>
         </div>
 

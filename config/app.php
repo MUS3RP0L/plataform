@@ -215,6 +215,7 @@ return [
         'Datatables' => Yajra\Datatables\Datatables::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+        'Util' => Muserpol\Helper\Util::class
 
     ],
 

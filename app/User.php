@@ -28,12 +28,35 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = [
+        'rol_id',
+        'first_name',
+        'last_name',
+        'phone',
+        'username',
+        'password',
+        'status'
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password'];
+
+    public function role() {
+
+        return $this->belongsTo(Role::class);
+    }
+
+    public function scopeIdIs($query, $id) {
+
+        return $query->where('id', $id);
+    }
+
+    public function getFullName() {
+
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }
