@@ -47,44 +47,46 @@ class Util
 
 	public static function CalcRegistration($nac, $pat, $mat, $nom, $sex)
 	{
-		$newnac = explode("-", $nac);
-		$nac_day = $newnac[2];
-		$nac_month = $newnac[1];
-		$nac_year = substr($newnac[0], -2);
+		if ($nac) {
+			$newnac = explode("-", $nac);
+			$nac_day = $newnac[2];
+			$nac_month = $newnac[1];
+			$nac_year = substr($newnac[0], -2);
 
-		$month_first = substr($nac_month, 0, 1);
-		$month_second = substr($nac_month, 1, 1);
+			$month_first = substr($nac_month, 0, 1);
+			$month_second = substr($nac_month, 1, 1);
 
-		if($pat  <> ''){
-			$pat_first = substr($pat, 0, 1);
-		}
-		else{
-			$pat_first = '';
-		}
-		if($mat <> ''){
-			$mat_first = substr($mat, 0, 1);
-		}
-		else{
-			$mat_first = '';
-		}
-		if($nom<> ''){
-			$nom_first = substr($nom, 0, 1);
-		}
-		else{
-			$nom_first = '';
-		}
-
-		if($sex == "M"){
-			return $nac_year . $nac_month . $nac_day . $pat_first . $mat_first . $nom_first;
-		}
-		elseif ($sex == "F"){
-			if($month_first = 0){
-				$month_last = "5" .$month_second;
+			if($pat  <> ''){
+				$pat_first = substr($pat, 0, 1);
 			}
-			elseif ($month_first = 1) {
-				$month_last = "6" . $month_second;
+			else{
+				$pat_first = '';
 			}
-			return $nac_year . $month_last . $nac_day . $pat_first . $mat_first . $nom_first;
+			if($mat <> ''){
+				$mat_first = substr($mat, 0, 1);
+			}
+			else{
+				$mat_first = '';
+			}
+			if($nom<> ''){
+				$nom_first = substr($nom, 0, 1);
+			}
+			else{
+				$nom_first = '';
+			}
+
+			if($sex == "M"){
+				return $nac_year . $nac_month . $nac_day . $pat_first . $mat_first . $nom_first;
+			}
+			elseif ($sex == "F"){
+				if($month_first = 0){
+					$month_last = "5" .$month_second;
+				}
+				elseif ($month_first = 1) {
+					$month_last = "6" . $month_second;
+				}
+				return $nac_year . $month_last . $nac_day . $pat_first . $mat_first . $nom_first;
+			}
 		}
 	}
 
@@ -142,47 +144,55 @@ class Util
 
 	public static function date($date)
 	{
-		$nac_day = substr($date, 0, 2);
-		$nac_month = substr($date, 2, 2);
-		$nac_year = substr($date, 4, 4);
+		if ($date) {
+			$nac_day = substr($date, 0, 2);
+			$nac_month = substr($date, 2, 2);
+			$nac_year = substr($date, 4, 4);
 
-		return date($nac_year ."-". $nac_month ."-". $nac_day);
+			return date($nac_year ."-". $nac_month ."-". $nac_day);
+		}
 	}
 
 	public static function dateAADDMM($date)
 	{
-		$nac_year = substr($date, 0, 2);
-		$nac_day = substr($date, 2, 2);
-		$nac_month = substr($date, 4, 2);
+		if ($date) {
+			$nac_year = substr($date, 0, 2);
+			$nac_day = substr($date, 2, 2);
+			$nac_month = substr($date, 4, 2);
 
-        $anios = array('2' => '19', '3' => '19', '4' => '19', '5' => '19', '6' => '19','7' => '19', '8' => '19', '9' => '19','0' => '20','1' => '20','2' => '20','3' => '20');
-        $a = substr($nac_year, 0, 1);
+	        $anios = array('2' => '19', '3' => '19', '4' => '19', '5' => '19', '6' => '19','7' => '19', '8' => '19', '9' => '19','0' => '20','1' => '20','2' => '20','3' => '20');
+	        $a = substr($nac_year, 0, 1);
 
-	return date($anios[$a] . $nac_year ."-". $nac_month ."-". $nac_day);
+			return date($anios[$a] . $nac_year ."-". $nac_month ."-". $nac_day);
+		}
 	}
 
 	public static function dateAAMMDD($date)
 	{
-		$nac_year = substr($date, 0, 2);
-		$nac_month = substr($date, 2, 2);
-		$nac_day = substr($date, 4, 2);
+		if ($date) {
+			$nac_year = substr($date, 0, 2);
+			$nac_month = substr($date, 2, 2);
+			$nac_day = substr($date, 4, 2);
 
-        $anios = array('2' => '19', '3' => '19', '4' => '19', '5' => '19', '6' => '19','7' => '19', '8' => '19', '9' => '19','0' => '20','1' => '20','2' => '20','3' => '20');
-        $a = substr($nac_year, 0, 1);
+	        $anios = array('2' => '19', '3' => '19', '4' => '19', '5' => '19', '6' => '19','7' => '19', '8' => '19', '9' => '19','0' => '20','1' => '20','2' => '20','3' => '20');
+	        $a = substr($nac_year, 0, 1);
 
-		return date($anios[$a] . $nac_year ."-". $nac_month ."-". $nac_day);
+			return date($anios[$a] . $nac_year ."-". $nac_month ."-". $nac_day);
+		}
 	}
 
 	public static function dateDDMMAA($date)
 	{
-		$nac_day = substr($date, 0, 2);
-		$nac_month = substr($date, 2, 2);
-		$nac_year = substr($date, 4, 2);
+		if ($date) {
+			$nac_day = substr($date, 0, 2);
+			$nac_month = substr($date, 2, 2);
+			$nac_year = substr($date, 4, 2);
 
-        $anios = array('2' => '19', '3' => '19', '4' => '19', '5' => '19', '6' => '19','7' => '19', '8' => '19', '9' => '19','0' => '20','1' => '20','2' => '20','3' => '20');
-        $a = substr($nac_year, 0, 1);
+	        $anios = array('2' => '19', '3' => '19', '4' => '19', '5' => '19', '6' => '19','7' => '19', '8' => '19', '9' => '19','0' => '20','1' => '20','2' => '20','3' => '20');
+	        $a = substr($nac_year, 0, 1);
 
-		return date($anios[$a] . $nac_year ."-". $nac_month ."-". $nac_day);
+			return date($anios[$a] . $nac_year ."-". $nac_month ."-". $nac_day);
+		}
 	}
 
 	public static function datePick($date)
@@ -203,24 +213,30 @@ class Util
 
 	public static function zero($string)
 	{
-		return preg_replace('/^0+/', '', $string);
+		if ($string) {
+			return preg_replace('/^0+/', '', $string);
+		}
 	}
 
-	public static function formatMoney($value){
-
-	    $value = number_format($value, 2, '.', ',');
-        return $value;
+	public static function formatMoney($value)
+	{
+		if ($string) {
+	    	$value = number_format($value, 2, '.', ',');
+        	return $value;
+		}
     }
 
 	public static function formatYear($year)
 	{
-		$first = substr($year, 0, 1);
+		if ($year) {
+			$first = substr($year, 0, 1);
 
-		if ($first == '9') {
-			return "19" . $year;
-		}
-		else{
-			return "20" . $year;
+			if ($first == '9') {
+				return "19" . $year;
+			}
+			else{
+				return "20" . $year;
+			}
 		}
 	}
 
