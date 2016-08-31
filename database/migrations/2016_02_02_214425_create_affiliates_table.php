@@ -107,7 +107,7 @@ class CreateAffiliatesTable extends Migration
             $table->UnsignedBigInteger('unit_id')->nullable();
             $table->UnsignedBigInteger('category_id')->nullable();
             $table->string('identity_card')->unique()->required();
-            $table->string('registration')->required();
+            $table->string('registration')->nullable();
             $table->string('last_name')->nullable();
             $table->string('mothers_last_name')->nullable();
             $table->string('first_name')->nullable();

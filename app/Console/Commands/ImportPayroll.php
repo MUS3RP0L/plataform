@@ -72,7 +72,8 @@ class ImportPayroll extends Command
                             !isset($result->nac) or !isset($result->ing) or !isset($result->mes) or !isset($result->a_o) or
                             !isset($result->uni) or !isset($result->desg) or !isset($result->niv) or !isset($result->gra) or
                             !isset($result->item) or !isset($result->sue) or !isset($result->cat) or !isset($result->est) or
-                            !isset($result->carg) or !isset($result->fro) or !isset($result->ori) or !isset($result->bseg) or
+                            !isset($result->carg) or !isset($result->fro) or !isset($result->ori) or
+                            //  !isset($result->bseg) or
                             !isset($result->dfu) or !isset($result->nat) or !isset($result->lac) or !isset($result->pre) or
                             !isset($result->sub) or !isset($result->gan) or !isset($result->afp) or !isset($result->pag) or
                             !isset($result->nua) or !isset($result->mus)) {
@@ -219,7 +220,7 @@ class ImportPayroll extends Command
                         $affiliate->item = $result->item;
                         $affiliate->birth_date = $birth_date;
                         $affiliate->date_entry = $date_entry;
-                        $affiliate->registration = Util::CalcRegistration($birth_date, $affiliate->last_name, $affiliate->mothers_last_name, $affiliate->first_name, $affiliate->gender);
+                        $affiliate->registration = Util::CalcRegistration($affiliate->birth_date, $affiliate->last_name, $affiliate->mothers_last_name, $affiliate->first_name, $affiliate->gender);
                         $affiliate->save();
 
                         if (Util::decimal($result->sue)<> 0) {
