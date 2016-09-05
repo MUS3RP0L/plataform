@@ -6,40 +6,36 @@
 
 @section('main-content')
 
-  	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Actividades</div>
-				<div class="panel-body">
-					<ul class="panel-body list-group">
-				      @foreach ($activities as $activity)
-				        <li class="list-group-item">
-				          <span style="color:#888;font-style:italic">{!! $activity->created_at !!}:</span>
-				          {!! $activity->message !!}
-				        </li>
-				      @endforeach
-				      </ul>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<div class="row">
 		<div class="col-md-4">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Total Afiliados por Estado</div>
-				<div class="panel-body" style="width: 92%">
+			<div class="box box-danger">
+	            <div class="box-header with-border">
+	            	<h3 class="box-title">Total Afiliados por Estado</h3>
+	            	<div class="box-tools pull-right">
+	                	<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+	                	</button>
+	                	<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+	              	</div>
+	            </div>
+	            <div class="box-body" style="width: 92%">
 					<canvas id="doughnu-estado" width="450" height="320"/>
-				</div>
-			</div>
+	            </div>
+	        </div>
 		</div>
 		<div class="col-md-8">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Total Aportes por Gestión</div>
-				<div class="panel-body" style="width: 95%">
-					<canvas id="bar-aportes" width="450px" height="150"></canvas>
-				</div>
-			</div>
+			<div class="box box-success">
+	            <div class="box-header with-border">
+	             	<h3 class="box-title">Total Aportes por Gestión</h3>
+	              	<div class="box-tools pull-right">
+		                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+		                </button>
+		                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+	              	</div>
+	            </div>
+				<div class="box-body" style="width: 95%">
+	              	<canvas id="bar-aportes" width="450px" height="150"></canvas>
+	            </div>
+	        </div>
 		</div>
 	</div>
 
