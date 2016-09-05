@@ -4,3 +4,11 @@
 <script src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <!-- iCheck -->
 <script src="{{ asset('/plugins/iCheck/icheck.min.js') }}" type="text/javascript"></script>
+
+@if (Session::has('error'))
+	<script type="text/javascript">
+    	$(document).ready(function(){
+			$("#myModal-error").modal('show');
+		});
+   </script>
+@endif

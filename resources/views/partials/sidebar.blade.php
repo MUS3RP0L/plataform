@@ -7,7 +7,6 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                {{-- <img src="{{asset('/img/default-50x50.gif')}}" class="img-circle" alt="User Image" /> --}}
                 <span class="fa fa-user" style="font-size: 45px;color:white;"></span>
             </div>
             <div class="pull-left info">
