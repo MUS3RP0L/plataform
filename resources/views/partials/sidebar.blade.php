@@ -7,7 +7,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <span class="fa fa-user" style="font-size: 45px;color:white;"></span>
+                <span class="fa fa-user" style="font-size: 40px;color:white;"></span>
             </div>
             <div class="pull-left info">
                 <p>{{ Util::ucw(Auth::user()->first_name) }}</p>
