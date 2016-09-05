@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function() {
 	// Dashboard
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'Dashboard\DashboardController@showIndex']);
 	Route::get('/', ['as' => 'dashboard', 'uses' => 'Dashboard\DashboardController@showIndex']);
+	Route::get('home', ['as' => 'dashboard', 'uses' => 'Dashboard\DashboardController@showIndex']);
 
 	// User Management
 	Route::resource('user', 'User\UserController');
