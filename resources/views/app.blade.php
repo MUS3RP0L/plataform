@@ -4,7 +4,7 @@
 
     @include('partials.htmlheader')
 
-    <body class="skin-red sidebar-mini">
+    <body class="skin-green sidebar-mini">
         <div class="wrapper">
 
             @include('partials.mainheader')

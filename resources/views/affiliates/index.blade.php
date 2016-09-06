@@ -8,21 +8,24 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Lista de Afiliados</h3>
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Búsqueda</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="box-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <form method="POST" id="search-form" role="form">
+                        <form method="POST" id="search-form" role="form" class="form-horizontal">
+                            <div class="col-md-11">
                                 <div class="row"><br>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             {!! Form::label('first_name', 'Primer Nombre', ['class' => 'col-md-5 control-label']) !!}
                                             <div class="col-md-7">
                                                 {!! Form::text('first_name', '', ['class'=> 'form-control']) !!}
-                                                <span class="help-block">Escriba el Primer Nombre</span>
                                             </div>
                                         </div>
                                     </div>
@@ -31,7 +34,6 @@
                                             {!! Form::label('second_name', 'Segundo Nombre', ['class' => 'col-md-5 control-label']) !!}
                                             <div class="col-md-7">
                                                 {!! Form::text('second_name', '', ['class'=> 'form-control']) !!}
-                                                <span class="help-block">Escriba el Segundo Nombre</span>
                                             </div>
                                         </div>
                                     </div>
@@ -40,7 +42,6 @@
                                             {!! Form::label('identity_card', 'Número Carnet', ['class' => 'col-md-5 control-label']) !!}
                                             <div class="col-md-7">
                                                 {!! Form::text('num_identity_card', '', ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
-                                                <span class="help-block">Escriba el Número de Carnet de Identidad</span>
                                             </div>
                                         </div>
                                     </div>
@@ -52,7 +53,6 @@
                                             {!! Form::label('last_name', 'Apellido Paterno', ['class' => 'col-md-5 control-label']) !!}
                                             <div class="col-md-7">
                                                 {!! Form::text('last_name', '', ['class'=> 'form-control']) !!}
-                                                <span class="help-block">Escriba el Apellido Paterno</span>
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +61,6 @@
                                             {!! Form::label('mothers_last_name', 'Apellido Materno', ['class' => 'col-md-5 control-label']) !!}
                                             <div class="col-md-7">
                                                 {!! Form::text('mothers_last_name', '', ['class'=> 'form-control']) !!}
-                                                <span class="help-block">Escriba el Apellido Materno</span>
                                             </div>
                                         </div>
                                     </div>
@@ -70,12 +69,13 @@
                                             {!! Form::label('registration', 'Número Matrícula', ['class' => 'col-md-5 control-label']) !!}
                                             <div class="col-md-7">
                                                 {!! Form::text('registration', '', ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
-                                                <span class="help-block">Escriba el Número de Matrícula</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <br>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="row text-center">
                                     <div class="form-group">
                                         <div class="col-md-12">
@@ -85,9 +85,10 @@
                                     </div>
                                 </div>
                                 <br>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-hover" id="affiliates-table">
