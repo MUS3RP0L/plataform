@@ -48,6 +48,10 @@
                         Report panel usage
                         {{-- <input type="checkbox" class="pull-right" checked /> --}}
                         <li class="active"><a href="{{ url('user') }}"><i class='fa fa-link'></i> <span>Usuarios</span></a></li>
+                        <li class="active"><a href="{{ url('contribution_rate') }}"><i class='fa fa-link'></i> <span>Tasa Aporte</span></a></li>
+                        <li class="active"><a href="{{ url('ipc_rate') }}"><i class='fa fa-link'></i> <span>Tasa IPC</span></a></li>
+                        <li class="active"><a href="{{ url('base_wage') }}"><i class='fa fa-link'></i> <span>Salario Básico</span></a></li>
+                        <li class="active"><a href="{{ url('monthly_report') }}"><i class='fa fa-link'></i> <span>Reporte Mensual</span></a></li>
                     </label>
                     <p>
                         Some information about this general settings option

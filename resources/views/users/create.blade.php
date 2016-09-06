@@ -1,13 +1,13 @@
-@extends('layout')
-
-@section('content')
-<div class="container-fluid">
+@extends('app')
+@section('contentheader_title')
 	{!! Breadcrumbs::render('create_user') !!}
+@endsection
+
+@section('main-content')
     <div class="row">
         <div class="col-md-12">
+					{!! Form::open(['method' => 'POST', 'route' => ['user.store'], 'class' => 'form-horizontal']) !!}
 
-			{!! Form::open(['method' => 'POST', 'route' => ['user.store'], 'class' => 'form-horizontal']) !!}
-			    
 			    <div class="row">
 			        <div class="col-md-6">
 						<div class="panel panel-primary">
@@ -23,14 +23,14 @@
 												{!! Form::text('first_name', null, ['class'=> 'form-control', 'required' => 'required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
 												<span class="help-block">Primer y Segundo Nombre</span>
 											</div>
-										</div>	
+										</div>
 										<div class="form-group">
 												{!! Form::label('last_name', 'Apellidos', ['class' => 'col-md-4 control-label']) !!}
 											<div class="col-md-6">
 												{!! Form::text('last_name', null, ['class'=> 'form-control', 'required' => 'required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
 												<span class="help-block">Apellido Paterno y Apellido Materno</span>
 											</div>
-										</div>								
+										</div>
 										<div class="form-group">
 												{!! Form::label('phone', 'Núm de Teléfono', ['class' => 'col-md-4 control-label']) !!}
 											<div class="col-md-6">
@@ -39,7 +39,7 @@
 											</div>
 										</div>
 									</div>
-								</div>							
+								</div>
 							</div>
 						</div>
 					</div>
@@ -77,10 +77,10 @@
 							              	{!! Form::label('role', 'Tipo de Usuario', ['class' => 'col-md-4 control-label']) !!}
 							              <div class="col-md-6">
 							              	{!! Form::select('role', $list_roles, null, ['class' => 'combobox form-control', 'required' => 'required']) !!}
-						                	<span class="help-block">Selecione el Tipo de Usuario</span>							                
+						                	<span class="help-block">Selecione el Tipo de Usuario</span>
 							              </div>
-							            </div>								
-									</div>	
+							            </div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -100,7 +100,7 @@
 			{!! Form::close() !!}
 		</div>
 	</div>
-</div>
+
 @endsection
 
 @push('scripts')
