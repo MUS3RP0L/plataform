@@ -25,7 +25,7 @@ class UserController extends Controller
 
     public function index()
     {
-        if (Auth::user()->can('admin')) {
+        if (Auth::user()->can('manage')) {
 
             return view('users.index');
 
