@@ -102,7 +102,6 @@ class CreateAffiliatesTable extends Migration
             $table->UnsignedBigInteger('affiliate_type_id')->nullable();
             $table->UnsignedBigInteger('city_identity_card_id')->nullable();
             $table->UnsignedBigInteger('city_birth_id')->nullable();
-            $table->UnsignedBigInteger('city_address_id')->nullable();
             $table->UnsignedBigInteger('degree_id')->nullable();
             $table->UnsignedBigInteger('unit_id')->nullable();
             $table->UnsignedBigInteger('category_id')->nullable();
@@ -124,9 +123,6 @@ class CreateAffiliatesTable extends Migration
             $table->date('service_start_date')->nullable();
             $table->date('service_end_date')->nullable();
             $table->date('change_date')->nullable();
-            $table->string('zone')->nullable();
-            $table->string('street')->nullable();
-            $table->string('number_address')->nullable();
             $table->string('phone')->nullable();
             $table->string('cell_phone')->nullable();
             $table->boolean('afp')->nullable();
@@ -144,6 +140,18 @@ class CreateAffiliatesTable extends Migration
             $table->foreign('unit_id')->references('id')->on('units');
             $table->foreign('category_id')->references('id')->on('categories');
 
+        });
+
+        Schema::create('affiliate_address', function(Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->UnsignedBigInteger('user_id');
+            $table->UnsignedBigInteger('affiliate_id');
+            $table->UnsignedBigInteger('city_address_id')->nullable();
+            $table->string('zone')->nullable();
+            $table->string('street')->nullable();
+            $table->string('number_address')->nullable();
+            $table->timestamps();
+            $table->foreign('affiliate_id')->references('id')->on('affiliates');
         });
 
         Schema::create('records', function(Blueprint $table) {
