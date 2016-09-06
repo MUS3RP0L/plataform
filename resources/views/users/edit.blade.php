@@ -1,12 +1,13 @@
-@extends('layout')
+@extends('app')
+@section('contentheader_title')
+		{!! Breadcrumbs::render('edit_user') !!}
+@endsection
 
-@section('content')
-<div class="container-fluid">
-	{!! Breadcrumbs::render('edit_user') !!}
+@section('main-content')
     <div class="row">
         <div class="col-md-12">
 
-			{!! Form::model($user, ['method' => 'PATCH', 'route' => ['user.update', $user->id], 'class' => 'form-horizontal']) !!}
+					{!! Form::model($user, ['method' => 'PATCH', 'route' => ['user.update', $user->id], 'class' => 'form-horizontal']) !!}
 
 			    <div class="row">
 			        <div class="col-md-6">
@@ -30,16 +31,16 @@
 												{!! Form::text('last_name', $user->last_name, ['class'=> 'form-control', 'required' => 'required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
 												<span class="help-block">Apellido Paterno y Apellido Materno</span>
 											</div>
-										</div>									
+										</div>
 										<div class="form-group">
 												{!! Form::label('phone', 'Núm de Teléfono', ['class' => 'col-md-4 control-label']) !!}
 											<div class="col-md-6">
 												{!! Form::text('phone', $user->phone, ['class'=> 'form-control', 'required' => 'required']) !!}
 												<span class="help-block">Teléfono Celular</span>
 											</div>
-										</div>					
+										</div>
 									</div>
-								</div>							
+								</div>
 							</div>
 						</div>
 					</div>
@@ -63,7 +64,7 @@
 								              	{!! Form::label('role', 'Tipo de Usuario', ['class' => 'col-md-4 control-label']) !!}
 								              <div class="col-md-6">
 								              	{!! Form::select('role', $list_roles, $user->role_id, ['class' => 'combobox form-control']) !!}
-							                	<span class="help-block">Selecione el Tipo de Usuario</span>							                
+							                	<span class="help-block">Selecione el Tipo de Usuario</span>
 								              </div>
 								            </div>
 								        @endcan
@@ -93,8 +94,8 @@
 													<span class="help-block">Ingrese de nuevo la Contraseña</span>
 												</div>
 											</div>
-										</div>							
-									</div>	
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -114,7 +115,7 @@
 			{!! Form::close() !!}
 		</div>
 	</div>
-</div>
+
 @endsection
 
 @push('scripts')
@@ -128,8 +129,8 @@
 	});
 
 	var Model = function() {
- 
-        this.passValue = ko.observable(false);     
+
+        this.passValue = ko.observable(false);
     };
 
     ko.bindingHandlers.fadeVisible = {
