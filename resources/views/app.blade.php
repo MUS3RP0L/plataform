@@ -2,33 +2,36 @@
 
 <html>
 
-@include('partials.htmlheader')
+    @include('partials.htmlheader')
 
-<body class="skin-red sidebar-mini">
-<div class="wrapper">
+    <body class="skin-red sidebar-mini">
+        <div class="wrapper">
 
-    @include('partials.mainheader')
+            @include('partials.mainheader')
 
-    @include('partials.sidebar')
+            @include('partials.sidebar')
 
-    <div class="content-wrapper">
+            <div class="content-wrapper">
 
-        @include('partials.contentheader')
+                @include('partials.contentheader')
 
+                <section class="content">
 
-        <section class="content">
+                    @yield('main-content')
 
-            @yield('main-content')
-        </section>
-    </div>
+                </section>
 
-    @include('partials.controlsidebar')
+            </div>
 
-    @include('partials.footer')
+            @include('partials.controlsidebar')
 
-</div>
+            @include('partials.footer')
 
-@include('partials.scripts')
-@yield('scripts')
-</body>
+        </div>
+
+        @include('partials.scripts')
+
+        @yield('scripts')
+
+    </body>
 </html>
