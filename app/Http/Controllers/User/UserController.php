@@ -25,7 +25,7 @@ class UserController extends Controller
 
     public function index()
     {
-        if (Auth::user()->can('manage')) {
+        if (Auth::user()->can('admin')) {
 
             return view('users.index');
 
@@ -60,7 +60,7 @@ class UserController extends Controller
                             </ul>
                         </div>';})->make(true);
     }
-                
+
     /**
      * Show the form for creating a new resource.
      *
@@ -92,7 +92,7 @@ class UserController extends Controller
 
             return redirect('/');
 
-        }   
+        }
     }
 
     /**
@@ -115,7 +115,7 @@ class UserController extends Controller
      */
 
     public function edit($user)
-    {   
+    {
         $data = [
 
             'user' => $user
@@ -155,7 +155,7 @@ class UserController extends Controller
 
             ];
         }
-        else { 
+        else {
 
             $rules = [
 
@@ -168,7 +168,7 @@ class UserController extends Controller
 
             ];
         }
-        
+
         $messages = [
 
             'first_name.required' => 'El campo nombre requerido',
@@ -177,7 +177,7 @@ class UserController extends Controller
 
 
             'last_name.required' => 'El campo apellidos es requerido',
-            'last_name.min' => 'El mínimo de caracteres permitidos en apellido es 3', 
+            'last_name.min' => 'El mínimo de caracteres permitidos en apellido es 3',
             'last_name.regex' => 'Sólo se aceptan letras para apellidos',
 
             'phone.required' => 'El campo teléfono es requerido',
@@ -193,13 +193,13 @@ class UserController extends Controller
             'password.confirmed' => 'Las contraseñas no coinciden',
 
             'role.required' => 'El campo tipo de usuario es requerido'
-            
+
         ];
-        
+
         $validator = Validator::make($request->all(), $rules, $messages);
-        
+
         if ($validator->fails()) {
-            
+
             return redirect($user ? 'user/'.$user->id.'/edit' : 'user/create')
             ->withErrors($validator)
             ->withInput();
@@ -226,7 +226,7 @@ class UserController extends Controller
 
             Session::flash('message', $message);
         }
-        
+
         return redirect('user');
     }
 

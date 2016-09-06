@@ -46,7 +46,8 @@
                 <div class="form-group">
                     <label class="control-sidebar-subheading">
                         Report panel usage
-                        <input type="checkbox" class="pull-right" checked />
+                        {{-- <input type="checkbox" class="pull-right" checked /> --}}
+                        <li class="active"><a href="{{ url('user') }}"><i class='fa fa-link'></i> <span>Usuarios</span></a></li>
                     </label>
                     <p>
                         Some information about this general settings option
