@@ -72,7 +72,8 @@ class Util
 				$mat_first = substr($mat, 0, 1);
 			}
 			else{
-				$mat_first = '';
+				//preguntar
+				$mat_first = substr($pat, 1, 1);
 			}
 			if($nom<> ''){
 				$nom_first = substr($nom, 0, 1);
