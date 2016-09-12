@@ -1,8 +1,10 @@
-@extends('layout')
+@extends('app')
 
-@section('content')
-<div class="container-fluid">
-    {!! Breadcrumbs::render('show_affiliate', $affiliate) !!}
+@section('contentheader_title')
+  {!! Breadcrumbs::render('show_affiliate', $affiliate) !!}
+@endsection
+
+@section('main-content')
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -710,7 +712,6 @@
 
         </div>
     </div>
-</div>
 
 <div id="myModal-personal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg">
