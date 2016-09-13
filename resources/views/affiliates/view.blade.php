@@ -352,7 +352,7 @@
                                     <div class="row text-center">
                                         <div data-toggle="modal" data-target="#myModal-address">
                                             <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Adicionar Domicilio">
-                                                <img class="circle" src="{!! asset('assets/images/home.png') !!}" width="40px" alt="icon">
+                                                <img class="circle" src="{!! asset('img/home.png') !!}" width="40px" alt="icon">
                                             </button>
                                         </div>
                                     </div>
@@ -501,7 +501,7 @@
                                     <div class="row text-center">
                                         <div data-toggle="modal" data-target="#myModal-spouse">
                                             <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Adicionar Conyuge">
-                                                <img class="circle" src="{!! asset('assets/images/people.png') !!}" width="45px" alt="icon">
+                                                <img class="circle" src="{!! asset('img/people.png') !!}" width="45px" alt="icon">
                                             </button>
                                         </div>
                                     </div>
