@@ -34,7 +34,7 @@ class CreateVouchersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('affiliate_id')->references('id')->on('affiliates');
+            $table->foreign('affiliate_id')->references('id')->on('affiliates')->onDelete('cascade');
             $table->foreign('voucher_type_id')->references('id')->on('voucher_types');
 
         });
@@ -47,7 +47,7 @@ class CreateVouchersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('voucher_types');
-        Schema::drop('vouchers');
+        Schema::dropIfExists('vouchers');
+        Schema::dropIfExists('voucher_types');
     }
 }

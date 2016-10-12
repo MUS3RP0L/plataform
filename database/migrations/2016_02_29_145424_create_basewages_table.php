@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBaseWagesTable extends Migration
+class CreateBasewagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -34,6 +34,6 @@ class CreateBaseWagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('base_wages');
+        Schema::dropIfExists('base_wages');
     }
 }

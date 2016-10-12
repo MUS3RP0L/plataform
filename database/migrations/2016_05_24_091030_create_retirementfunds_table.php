@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRetirementFundsTable extends Migration
+class CreateRetirementfundsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -44,7 +44,7 @@ class CreateRetirementFundsTable extends Migration
             $table->string('comment');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('affiliate_id')->references('id')->on('affiliates');
+            $table->foreign('affiliate_id')->references('id')->on('affiliates')->onDelete('cascade');
             $table->foreign('retirement_fund_modality_id')->references('id')->on('retirement_fund_modalities');
             $table->foreign('city_id')->references('id')->on('cities');
 
@@ -71,7 +71,7 @@ class CreateRetirementFundsTable extends Migration
             $table->string('comment')->nullable();
             $table->timestamps();
             $table->foreign('requirement_id')->references('id')->on('requirements');
-            $table->foreign('retirement_fund_id')->references('id')->on('retirement_funds');
+            $table->foreign('retirement_fund_id')->references('id')->on('retirement_funds')->onDelete('cascade');
 
         });
 
@@ -94,7 +94,7 @@ class CreateRetirementFundsTable extends Migration
             $table->string('code')->nullable();
             $table->timestamps();
             $table->foreign('antecedent_file_id')->references('id')->on('antecedent_files');
-            $table->foreign('retirement_fund_id')->references('id')->on('retirement_funds');
+            $table->foreign('retirement_fund_id')->references('id')->on('retirement_funds')->onDelete('cascade');
 
         });
 
@@ -122,7 +122,7 @@ class CreateRetirementFundsTable extends Migration
             $table->string('work_address')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('retirement_fund_id')->references('id')->on('retirement_funds');
+            $table->foreign('retirement_fund_id')->references('id')->on('retirement_funds')->onDelete('cascade');
             $table->foreign('applicant_type_id')->references('id')->on('applicant_types');
 
         });
@@ -136,13 +136,13 @@ class CreateRetirementFundsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('retirement_fund_modalities');
-        Schema::drop('retirement_funds');
-        Schema::drop('requirements');
-        Schema::drop('documents');
-        Schema::drop('antecedent_files');
-        Schema::drop('antecedents');
-        Schema::drop('applicant_types');
         Schema::drop('applicants');
+        Schema::drop('applicant_types');
+        Schema::drop('antecedents');
+        Schema::drop('antecedent_files');
+        Schema::drop('documents');
+        Schema::drop('requirements');
+        Schema::drop('retirement_funds');
+        Schema::drop('retirement_fund_modalities');
     }
 }

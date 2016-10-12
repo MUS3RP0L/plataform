@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIpcRatesTable extends Migration
+class CreateIpcratesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -32,6 +32,6 @@ class CreateIpcRatesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ipc_rates');
+        Schema::dropIfExists('ipc_rates');
     }
 }

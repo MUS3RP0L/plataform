@@ -14,7 +14,6 @@ class SumarAportesCStoredProcedure extends Migration
 
         DB::unprepared('CREATE PROCEDURE sum_contributionsC(IN month int, year int) BEGIN SELECT COUNT(DISTINCT(contributions.id)) count_id, SUM(contributions.base_wage) salary, SUM(contributions.seniority_bonus) seniority_bonus,SUM(contributions.study_bonus) study_bonus, SUM(contributions.position_bonus) position_bonus, SUM(contributions.border_bonus) border_bonus, SUM(contributions.east_bonus) east_bonus,SUM(contributions.public_security_bonus) public_security_bonus, SUM(contributions.gain) gain, SUM(contributions.quotable) quotable, SUM(contributions.total) total,SUM(contributions.retirement_fund) retirement_fund, SUM(contributions.mortuary_quota) mortuary_quota FROM contributions WHERE MONTH(contributions.month_year) = month and YEAR(contributions.month_year) = year and contributions.breakdown_id <> 5; END');
 
-
     }
 
     /**

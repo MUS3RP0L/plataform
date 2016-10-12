@@ -38,8 +38,8 @@ class CreateReimbursementsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('affiliate_id')->references('id')->on('affiliates');
-            $table->foreign('direct_contribution_id')->references('id')->on('direct_contributions');
+            $table->foreign('affiliate_id')->references('id')->on('affiliates')->onDelete('cascade');
+            $table->foreign('direct_contribution_id')->references('id')->on('direct_contributions')->onDelete('cascade');
             $table->unique(array('affiliate_id','month_year'));
 
         });
@@ -52,6 +52,6 @@ class CreateReimbursementsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('reimbursements');
+        Schema::dropIfExists('reimbursements');
     }
 }

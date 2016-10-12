@@ -34,7 +34,7 @@ class CreateContributionsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('affiliate_id')->references('id')->on('affiliates');
+            $table->foreign('affiliate_id')->references('id')->on('affiliates')->onDelete('cascade');
 
         });
 
@@ -84,9 +84,9 @@ class CreateContributionsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('affiliate_id')->references('id')->on('affiliates');
+            $table->foreign('affiliate_id')->references('id')->on('affiliates')->onDelete('cascade');
             $table->foreign('contribution_type_id')->references('id')->on('contribution_types');
-            $table->foreign('direct_contribution_id')->references('id')->on('direct_contributions');
+            $table->foreign('direct_contribution_id')->references('id')->on('direct_contributions')->onDelete('cascade');
             $table->foreign('degree_id')->references('id')->on('degrees');
             $table->foreign('unit_id')->references('id')->on('units');
             $table->foreign('category_id')->references('id')->on('categories');
@@ -102,7 +102,8 @@ class CreateContributionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('direct_contributions');
-        Schema::drop('contributions');
+        Schema::dropIfExists('contributions');
+        Schema::dropIfExists('contribution_types');
+        Schema::dropIfExists('direct_contributions');
     }
 }

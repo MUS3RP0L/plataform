@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContributionRatesTable extends Migration
+class CreateContributionratesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -34,6 +34,6 @@ class CreateContributionRatesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('contribution_rates');
+        Schema::dropIfExists('contribution_rates');
     }
 }
