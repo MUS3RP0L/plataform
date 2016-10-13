@@ -18,6 +18,7 @@ class CreateAffiliatesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('shortened');
+            $table->string('second_shortened');
             $table->timestamps();
 
         });

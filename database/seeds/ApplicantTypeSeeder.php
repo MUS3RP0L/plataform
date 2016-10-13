@@ -9,7 +9,7 @@ class ApplicantTypeSeeder extends Seeder
      *
      * @return void
      */
-    
+
     public function run()
     {
         Eloquent::unguard();
@@ -25,6 +25,7 @@ class ApplicantTypeSeeder extends Seeder
 
             ['name' => 'Titular'],
             ['name' => 'Conyuge'],
+            ['name' => 'hijo'],
             ['name' => 'Otro']
 
         ];
@@ -32,7 +33,7 @@ class ApplicantTypeSeeder extends Seeder
         foreach ($statuses as $status) {
 
                 Muserpol\ApplicantType::create($status);
-            
+
         }
     }
 }

@@ -4,9 +4,9 @@ namespace Muserpol;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Module extends Model
 {
-    protected $table = 'roles';
+    protected $table = 'modules';
 
 	protected $fillable = [
 
@@ -14,4 +14,5 @@ class Role extends Model
 	];
 
 	protected $guarded = ['id'];
+
 }

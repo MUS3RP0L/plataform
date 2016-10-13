@@ -31,6 +31,7 @@ class CategoryTableSeeder extends Seeder
             ['from' => '21', 'to' => '24', 'name' => '75%', 'percentage' => '0.75'],
             ['from' => '25', 'to' => '28', 'name' => '85%', 'percentage' => '0.85'],
             ['from' => '29', 'to' => '0', 'name' => '100%', 'percentage' => '1'],
+            
             ['from' => '0', 'to' => '0', 'name' => 'S/N', 'percentage' => '0.34'],
             ['from' => '0', 'to' => '0', 'name' => 'S/N', 'percentage' => '0.5']
 
@@ -39,7 +40,7 @@ class CategoryTableSeeder extends Seeder
         foreach ($statuses as $status) {
 
             Muserpol\Category::create($status);
-            
+
         }
     }
 }

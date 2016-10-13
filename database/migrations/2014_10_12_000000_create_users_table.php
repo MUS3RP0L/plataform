@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
 
     public function up()
     {
-        Schema::create('roles', function(Blueprint $table) {
+        Schema::create('modules', function(Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->string('name');
@@ -21,13 +21,13 @@ class CreateUsersTable extends Migration
 
         });
 
-        Schema::create('modules', function(Blueprint $table) {
+        Schema::create('roles', function(Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->UnsignedBigInteger('role_id');
+            $table->UnsignedBigInteger('module_id');
             $table->string('name');
             $table->timestamps();
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('module_id')->references('id')->on('modules');
 
         });
 
@@ -58,7 +58,8 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('modules');
         Schema::dropIfExists('roles');
+        Schema::dropIfExists('modules');
+
     }
 }

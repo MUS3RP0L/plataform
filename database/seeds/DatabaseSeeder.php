@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AffiliateTypeandStateTableSeeder::class);
         $this->call(IpcRateTableSeeder::class);
         $this->call(ContributionRateTableSeeder::class);
-        $this->call(BaseWageTableSeeder::class);
         $this->call(CategoryTableSeeder::class);
         $this->call(ContributionTypeTableSeeder::class);
         $this->call(BreakdownTableSeeder::class);

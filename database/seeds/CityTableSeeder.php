@@ -10,7 +10,7 @@ class CityTableSeeder extends Seeder
      *
      * @return void
      */
-    
+
     public function run()
     {
         Eloquent::unguard();
@@ -24,22 +24,22 @@ class CityTableSeeder extends Seeder
     {
         $statuses = [
 
-            ['name' => 'BENI', 'shortened' => 'BN'],
-            ['name' => 'CHUQUISACA', 'shortened' => 'CH'],
-            ['name' => 'COCHABAMBA', 'shortened' => 'CB'],
-            ['name' => 'LA PAZ', 'shortened' => 'LP'],
-            ['name' => 'ORURO', 'shortened' => 'OR'],
-            ['name' => 'PANDO', 'shortened' => 'PN'],
-            ['name' => 'POTOSÍ', 'shortened' => 'PO'],
-            ['name' => 'SANTA CRUZ', 'shortened' => 'SC'],
-            ['name' => 'TARIJA', 'shortened' => 'TJ']
+            ['name' => 'BENI', 'shortened' => 'BN', 'second_shortened' => 'BEN'],
+            ['name' => 'CHUQUISACA', 'shortened' => 'CH', 'second_shortened' => 'SUC'],
+            ['name' => 'COCHABAMBA', 'shortened' => 'CB', 'second_shortened' => 'CBB'],
+            ['name' => 'LA PAZ', 'shortened' => 'LP', 'second_shortened' => 'LPZ'],
+            ['name' => 'ORURO', 'shortened' => 'OR', 'second_shortened' => 'ORU'],
+            ['name' => 'PANDO', 'shortened' => 'PN', 'second_shortened' => 'PDO'],
+            ['name' => 'POTOSÍ', 'shortened' => 'PO', 'second_shortened' => 'PTS'],
+            ['name' => 'SANTA CRUZ', 'shortened' => 'SC', 'second_shortened' => 'SCZ'],
+            ['name' => 'TARIJA', 'shortened' => 'TJ', 'second_shortened' => 'TJA']
 
         ];
 
         foreach ($statuses as $status) {
 
             Muserpol\City::create($status);
-            
+
         }
     }
 }
