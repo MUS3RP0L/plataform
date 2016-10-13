@@ -34,7 +34,7 @@ class RolesTableSeeder extends Seeder
 
         foreach ($statuses as $status) {
 
-            Muserpol\AffiliateState::create($status);
+            Muserpol\Module::create($status);
         }
     }
 
@@ -42,15 +42,15 @@ class RolesTableSeeder extends Seeder
     {
         $statuses = [
 
-            ['state_type_id' => '1', 'name' => 'Administrador'],
-            ['state_type_id' => '2', 'name' => 'Ventanilla'],
-            ['state_type_id' => '2', 'name' => 'Certificación'],
-            ['state_type_id' => '2', 'name' => 'Calificación'],
-            ['state_type_id' => '2', 'name' => 'Legal'],
-            ['state_type_id' => '2', 'name' => 'Administrador'],
-            ['state_type_id' => '3', 'name' => 'Recepción'],
-            ['state_type_id' => '3', 'name' => 'Calificación'],
-            ['state_type_id' => '3', 'name' => 'Administrador']
+            ['module_id' => '1', 'name' => 'Administrador'],
+            ['module_id' => '2', 'name' => 'Ventanilla'],
+            ['module_id' => '2', 'name' => 'Certificación'],
+            ['module_id' => '2', 'name' => 'Calificación'],
+            ['module_id' => '2', 'name' => 'Legal'],
+            ['module_id' => '2', 'name' => 'Administrador'],
+            ['module_id' => '3', 'name' => 'Recepción'],
+            ['module_id' => '3', 'name' => 'Calificación'],
+            ['module_id' => '3', 'name' => 'Administrador']
 
         ];
 

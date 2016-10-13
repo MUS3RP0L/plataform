@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->UnsignedBigInteger('module_id');
+            $table->UnsignedBigInteger('role_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone')->nullable();
@@ -44,7 +44,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('module_id')->references('id')->on('modules');
+            $table->foreign('role_id')->references('id')->on('roles');
 
         });
     }
