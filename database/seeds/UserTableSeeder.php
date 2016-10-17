@@ -23,12 +23,12 @@ class UserTableSeeder extends Seeder
     	Muserpol\User::create([
 
             'first_name' => 'Alejandro Erick',
-            'last_name' => 'Guisbert Flor', 
+            'last_name' => 'Guisbert Flor',
         	'phone' => '77551112',
         	'username' => '4771553',
-        	'password' => bcrypt('admin'),
+        	'password' => bcrypt('V3l3r0s3s4m0'),
         	'role_id' => '1'
-            
+
         ]);
     }
 }
