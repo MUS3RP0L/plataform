@@ -3,8 +3,8 @@
 <html>
 
     @include('partials.htmlheader')
-
-    <body class="skin-green sidebar-mini">
+    
+    <body class="skin-green sidebar-mini fixed wysihtml5-supported sidebar-collapse">
         <div class="wrapper">
 
             @include('partials.mainheader')

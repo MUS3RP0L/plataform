@@ -25,8 +25,8 @@ class UserTableSeeder extends Seeder
             'first_name' => 'Alejandro Erick',
             'last_name' => 'Guisbert Flor',
         	'phone' => '77551112',
-        	'username' => '4771553',
-        	'password' => bcrypt('V3l3r0s3s4m0'),
+        	'username' => 'aguisbert',
+        	'password' => bcrypt('admin'),
         	'role_id' => '1'
 
         ]);

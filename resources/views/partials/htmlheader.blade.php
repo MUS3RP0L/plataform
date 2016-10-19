@@ -18,7 +18,8 @@
     {!! Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css') !!}
 
     {!! Html::style('bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css') !!}
-        {!! Html::style('bower_components/bootstrap-material-design/dist/css/ripples.min.css') !!}
+
+    {!! Html::style('bower_components/bootstrap-material-design/dist/css/ripples.min.css') !!}
 
     {!! Html::style('bower_components/data-tables/media/css/dataTables.bootstrap.min.css') !!}
 

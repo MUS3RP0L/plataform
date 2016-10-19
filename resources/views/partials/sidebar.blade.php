@@ -5,16 +5,7 @@
     <section class="sidebar">
 
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                <span class="fa fa-user" style="font-size: 40px;color:white;"></span>
-            </div>
-            <div class="pull-left info">
-                <p>{{ Util::ucw(Auth::user()->first_name) }}</p>
-                <!-- Status -->
-                <a href="#">{{ Auth::user()->role->name }}</a>
-            </div>
-        </div>
+
 
         <!-- search form (Optional) -->
         {{-- <form action="#" method="get" class="sidebar-form">
@@ -28,9 +19,9 @@
         <!-- /.search form -->
 
         <ul class="sidebar-menu">
-            <li class="header">MENÚ PRINCIPAL</li>
+            <li class="header">MENÚ</li>
             <li {!! (Request::is('home') ? 'class=active' : '') !!}>
-            <a href="{!! url('home') !!}"><i class='fa fa-link'></i> <span>Inicio</span></a>
+            <a href="{!! url('home') !!}"><i class='fa fa-tachometer'></i> <span>Inicio</span></a>
             </li>
 
             <li {!! (Request::is('affiliate') ? 'class=active' : '') !!}>

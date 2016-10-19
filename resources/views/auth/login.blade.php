@@ -4,7 +4,7 @@
 <body class="login-page">
     <div class="login-box">
         <div class="login-logo">
-            Plataforma Virtual MUSERPOL
+            Plataforma Virtual <b>MUSERPOL</b>
         </div>
 
         <div id="myModal-error" class="modal modal-danger fade">
@@ -34,7 +34,7 @@
             {!! Form::open(['url' => 'login', 'role' => 'form']) !!}
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="Carnet de Identidad" name="username" required/>
+                    <input type="text" class="form-control" placeholder="Nombre de Usuario" name="username" required/>
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <button type="submit" class="btn btn-success btn-block btn-flat">Ingresar</button>
+                        <button type="submit" class="btn btn-block btn-raised btn-primary">Ingresar</button>
                     </div>
                 </div>
             {!! Form::close() !!}
