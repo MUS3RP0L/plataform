@@ -37,13 +37,7 @@
                     </div>
                   </a>
                 </li>
-                <li>
-                  <a href="{{ url('monthly_report') }}">
-                    <div class="menu" style="font-size:16px;font-weight:400;color:#fff;">
-                    <i class="fa fa-wrench"></i> Reporte Mensual
-                    </div>
-                  </a>
-                </li>
+                
             </ul><!-- /.control-sidebar-menu -->
 
         </div><!-- /.tab-pane -->

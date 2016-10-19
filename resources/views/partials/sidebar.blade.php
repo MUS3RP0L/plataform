@@ -25,7 +25,7 @@
             </li>
 
             <li {!! (Request::is('affiliate') ? 'class=active' : '') !!}>
-            <a href="{!! url('affiliate') !!}"><i class='fa fa-link'></i> <span>Afiliados</span></a>
+            <a href="{!! url('affiliate') !!}"><i class='glyphicon glyphicon-user'></i> <span>Afiliados</span></a>
             </li>
 
             <li class="treeview">

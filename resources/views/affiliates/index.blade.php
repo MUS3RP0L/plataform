@@ -122,6 +122,7 @@
         processing: true,
         serverSide: true,
         pageLength: 8,
+        autoWidth: false,
         ajax: {
             url: '{!! route('get_affiliate') !!}',
             data: function (d) {
