@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EconomicComplementType extends Model
 {
-    protected $table = 'economic_complement_types';
+    protected $table = 'eco_com_types';
 
 	protected $fillable = [
 

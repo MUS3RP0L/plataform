@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RequirementTableSeeder::class);
         $this->call(AntecedentFileTableSeeder::class);
         $this->call(VoucherTypeTableSeeder::class);
+        $this->call(EconomicComplementModalityTableSeeder::class);
 
         Model::reguard();
     }
