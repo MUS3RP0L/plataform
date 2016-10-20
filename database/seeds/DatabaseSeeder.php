@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AntecedentFileTableSeeder::class);
         $this->call(VoucherTypeTableSeeder::class);
         $this->call(EconomicComplementModalityTableSeeder::class);
+        $this->call(PensionEntityTableSeeder::class);
 
         Model::reguard();
     }

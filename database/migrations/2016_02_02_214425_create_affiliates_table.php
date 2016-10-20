@@ -72,7 +72,7 @@ class CreateAffiliatesTable extends Migration
         Schema::create('pension_entities', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->integer('code');
+            $table->enum('type',['APS', 'SENASIR']);
             $table->string('name');
             $table->timestamps();
 
