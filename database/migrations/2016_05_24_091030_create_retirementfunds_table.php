@@ -136,13 +136,13 @@ class CreateRetirementfundsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('applicants');
-        Schema::drop('applicant_types');
-        Schema::drop('antecedents');
-        Schema::drop('antecedent_files');
-        Schema::drop('documents');
-        Schema::drop('requirements');
-        Schema::drop('retirement_funds');
-        Schema::drop('retirement_fund_modalities');
+        Schema::dropIfExists('applicants');
+        Schema::dropIfExists('applicant_types');
+        Schema::dropIfExists('antecedents');
+        Schema::dropIfExists('antecedent_files');
+        Schema::dropIfExists('documents');
+        Schema::dropIfExists('requirements');
+        Schema::dropIfExists('retirement_funds');
+        Schema::dropIfExists('retirement_fund_modalities');
     }
 }

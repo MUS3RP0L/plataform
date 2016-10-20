@@ -48,7 +48,7 @@ class EconomicComplementModalityTableSeeder extends Seeder
             ['name' => 'RENT-1COMP-M2000', 'description' => 'Un solo componente y menor a Bs. 2000,00', 'shortened' => 'R-1C-M2000'],
             ['name' => 'RENT-1COMP-M2000', 'description' => 'Un solo componente y menor a Bs. 2000,00', 'shortened' => 'R-1C-M2000'],
             ['name' => 'RENT-M2000', 'description' => 'Renta menor a Bs. 2000,00', 'shortened' => 'R-M2000'],
-            ['name' => 'RENT-M2000', 'description' => 'Renta menor a Bs. 2000,00', 'shortened' => 'R-M2000'],
+            ['name' => 'RENT-M2000', 'description' => 'Renta menor a Bs. 2000,00', 'shortened' => 'R-M2000']
 
         ];
 

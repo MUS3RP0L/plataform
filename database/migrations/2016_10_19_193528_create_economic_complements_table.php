@@ -12,7 +12,7 @@ class CreateEconomicComplementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('economic_complement_types', function(Blueprint $table) {
+        Schema::create('eco_com_types', function(Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->string('name');
@@ -20,15 +20,15 @@ class CreateEconomicComplementsTable extends Migration
 
         });
 
-        Schema::create('economic_complement_modalities', function(Blueprint $table) {
+        Schema::create('eco_com_modalities', function(Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->UnsignedBigInteger('economic_complement_type_id');
+            $table->UnsignedBigInteger('eco_com_type_id');
             $table->string('name');
             $table->string('description');
             $table->string('shortened');
             $table->timestamps();
-            $table->foreign('economic_complement_type_id')->references('id')->on('economic_complement_types');
+            $table->foreign('eco_com_type_id')->references('id')->on('eco_com_types');
 
         });
 
@@ -36,7 +36,7 @@ class CreateEconomicComplementsTable extends Migration
 
             $table->bigIncrements('id');
             $table->UnsignedBigInteger('affiliate_id');
-            $table->UnsignedBigInteger('economic_complement_modality_id')->nullable();
+            $table->UnsignedBigInteger('eco_com_modality_id')->nullable();
             $table->UnsignedBigInteger('city_id')->nullable();
             $table->string('code')->unique()->required();
             $table->date('reception_date')->nullable();
@@ -52,7 +52,6 @@ class CreateEconomicComplementsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('affiliate_id')->references('id')->on('affiliates')->onDelete('cascade');
-            $table->foreign('economic_complement_modality_id')->references('id')->on('economic_complement_modalities');
             $table->foreign('city_id')->references('id')->on('cities');
 
         });
@@ -65,6 +64,8 @@ class CreateEconomicComplementsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('economic_complements');
+        Schema::dropIfExists('economic_complements');
+        Schema::dropIfExists('eco_com_modalities');
+        Schema::dropIfExists('eco_com_types');
     }
 }
