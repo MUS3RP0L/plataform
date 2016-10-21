@@ -55,6 +55,51 @@ class CreateEconomicComplementsTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities');
 
         });
+
+        Schema::create('eco_com_requirements', function (Blueprint $table) {
+
+            $table->bigIncrements('id');
+            $table->UnsignedBigInteger('eco_com_type_id');
+            $table->string('name');
+            $table->string('shortened');
+            $table->timestamps();
+            $table->foreign('eco_com_type_id')->references('id')->on('eco_com_types');
+
+        });
+
+        Schema::create('eco_com_submitted_documents', function (Blueprint $table) {
+
+            $table->bigIncrements('id');
+            $table->UnsignedBigInteger('requirement_id');
+            $table->UnsignedBigInteger('retirement_fund_id');
+            $table->date('reception_date');
+            $table->boolean('status')->default(0);
+            $table->string('comment')->nullable();
+            $table->timestamps();
+            $table->foreign('requirement_id')->references('id')->on('requirements');
+            $table->foreign('retirement_fund_id')->references('id')->on('retirement_funds')->onDelete('cascade');
+
+        });
+
+        Schema::create('eco_com_applicants', function (Blueprint $table) {
+
+            $table->bigIncrements('id');
+            $table->UnsignedBigInteger('retirement_fund_id');
+
+            $table->string('identity_card')->required();
+            $table->string('last_name')->nullable();
+            $table->string('mothers_last_name')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('kinship')->nullable();
+            $table->string('home_address')->nullable();
+            $table->string('home_phone_number')->nullable();
+            $table->string('home_cell_phone_number')->nullable();
+            $table->string('work_address')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('retirement_fund_id')->references('id')->on('retirement_funds')->onDelete('cascade');
+
+        });
     }
 
     /**
