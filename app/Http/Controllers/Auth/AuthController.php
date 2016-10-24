@@ -60,7 +60,7 @@ class AuthController extends Controller
             ];
 
             $messages = [
-                'username.required' => 'El Carnet de identidad es requerido',
+                'username.required' => 'El Nombre de usuario es requerido',
                 'password.required' => 'La Contraseña es requerida',
             ];
 
@@ -69,7 +69,7 @@ class AuthController extends Controller
             return redirect('login')
             ->withErrors($validator)
             ->withInput()
-            ->with('error', 'Carnet de identidad y contraseña no válidos');
+            ->with('error', 'Nombre de usuario y contraseña no válidos');
         }
     }
 
