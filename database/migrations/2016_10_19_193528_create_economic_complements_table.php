@@ -73,6 +73,7 @@ class CreateEconomicComplementsTable extends Migration
             $table->boolean('status')->default(0);
             $table->string('comment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('eco_com_requirements')->references('id')->on('eco_com_requirements');
             $table->foreign('economic_complement_id')->references('id')->on('economic_complements')->onDelete('cascade');
 
@@ -82,6 +83,7 @@ class CreateEconomicComplementsTable extends Migration
 
             $table->bigIncrements('id');
             $table->UnsignedBigInteger('economic_complement_id');
+            $table->UnsignedBigInteger('applicant_type_id');
             $table->string('identity_card')->required();
             $table->string('last_name')->nullable();
             $table->string('mothers_last_name')->nullable();
@@ -94,6 +96,7 @@ class CreateEconomicComplementsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('economic_complement_id')->references('id')->on('economic_complements')->onDelete('cascade');
+            $table->foreign('applicant_type_id')->references('id')->on('applicant_types');
 
         });
     }
