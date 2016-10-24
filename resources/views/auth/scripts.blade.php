@@ -5,6 +5,11 @@
 	{!! Html::script('bower_components/bootstrap-material-design/dist/js/material.min.js') !!}
 
 	<script type="text/javascript">
+		$.ajaxSetup({
+	        headers: {
+	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        }
+		});
         $(document).on('ready', function(){
             $.material.init();
         });
