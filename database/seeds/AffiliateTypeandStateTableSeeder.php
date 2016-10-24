@@ -35,7 +35,7 @@ class AffiliateTypeandStateTableSeeder extends Seeder
             Muserpol\AffiliateType::create($status);
         }
     }
-    
+
     private function createStateType()
     {
         $statuses = [
@@ -65,7 +65,7 @@ class AffiliateTypeandStateTableSeeder extends Seeder
             ['state_type_id' => '2', 'name' => 'Jubilado Invalidez'],
 
             ['state_type_id' => '3', 'name' => 'Baja Forzosa'],
-            ['state_type_id' => '3', 'name' => 'Baja voluntaria'],
+            ['state_type_id' => '3', 'name' => 'Baja Voluntaria'],
             ['state_type_id' => '3', 'name' => 'Baja Temporal']
 
         ];

@@ -25,7 +25,7 @@ class ApplicantTypeSeeder extends Seeder
 
             ['name' => 'Titular'],
             ['name' => 'Conyuge'],
-            ['name' => 'hijo'],
+            ['name' => 'Hijo'],
             ['name' => 'Otro']
 
         ];

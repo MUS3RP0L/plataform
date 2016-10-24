@@ -26,7 +26,6 @@ class CreateEconomicComplementsTable extends Migration
             $table->UnsignedBigInteger('eco_com_type_id');
             $table->string('name');
             $table->string('description');
-            $table->string('shortened');
             $table->timestamps();
             $table->foreign('eco_com_type_id')->references('id')->on('eco_com_types');
 
@@ -41,14 +40,12 @@ class CreateEconomicComplementsTable extends Migration
             $table->string('code')->unique()->required();
             $table->date('reception_date')->nullable();
             $table->date('review_date')->nullable();
-
             // $table->decimal('total_quotable', 13, 2);
             // $table->decimal('total_additional_quotable', 13, 2);
             // $table->decimal('subtotal', 13, 2);
             // $table->decimal('performance', 13, 2);
             // $table->decimal('total', 13, 2);
             // $table->string('comment');
-
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('affiliate_id')->references('id')->on('affiliates')->onDelete('cascade');
@@ -70,22 +67,21 @@ class CreateEconomicComplementsTable extends Migration
         Schema::create('eco_com_submitted_documents', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->UnsignedBigInteger('requirement_id');
-            $table->UnsignedBigInteger('retirement_fund_id');
+            $table->UnsignedBigInteger('eco_com_requirements');
+            $table->UnsignedBigInteger('economic_complement_id');
             $table->date('reception_date');
             $table->boolean('status')->default(0);
             $table->string('comment')->nullable();
             $table->timestamps();
-            $table->foreign('requirement_id')->references('id')->on('requirements');
-            $table->foreign('retirement_fund_id')->references('id')->on('retirement_funds')->onDelete('cascade');
+            $table->foreign('eco_com_requirements')->references('id')->on('eco_com_requirements');
+            $table->foreign('economic_complement_id')->references('id')->on('economic_complements')->onDelete('cascade');
 
         });
 
         Schema::create('eco_com_applicants', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->UnsignedBigInteger('retirement_fund_id');
-
+            $table->UnsignedBigInteger('economic_complement_id');
             $table->string('identity_card')->required();
             $table->string('last_name')->nullable();
             $table->string('mothers_last_name')->nullable();
@@ -97,7 +93,7 @@ class CreateEconomicComplementsTable extends Migration
             $table->string('work_address')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('retirement_fund_id')->references('id')->on('retirement_funds')->onDelete('cascade');
+            $table->foreign('economic_complement_id')->references('id')->on('economic_complements')->onDelete('cascade');
 
         });
     }
@@ -109,6 +105,9 @@ class CreateEconomicComplementsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('eco_com_applicants');
+        Schema::dropIfExists('eco_com_submitted_documents');
+        Schema::dropIfExists('eco_com_requirements');
         Schema::dropIfExists('economic_complements');
         Schema::dropIfExists('eco_com_modalities');
         Schema::dropIfExists('eco_com_types');
