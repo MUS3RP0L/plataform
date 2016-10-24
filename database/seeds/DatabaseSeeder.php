@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(VoucherTypeTableSeeder::class);
         $this->call(EconomicComplementModalityTableSeeder::class);
         $this->call(PensionEntityTableSeeder::class);
+        $this->call(EconomicComplementApplicantTypeTableSeeder::class);
 
         Model::reguard();
     }

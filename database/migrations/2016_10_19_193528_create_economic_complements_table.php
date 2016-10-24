@@ -37,9 +37,14 @@ class CreateEconomicComplementsTable extends Migration
             $table->UnsignedBigInteger('affiliate_id');
             $table->UnsignedBigInteger('eco_com_modality_id')->nullable();
             $table->UnsignedBigInteger('city_id')->nullable();
+            $table->date('first_ticket_month_id');
+            $table->date('second_ticket_month_id')->nullable();
             $table->string('code')->unique()->required();
+
             $table->date('reception_date')->nullable();
             $table->date('review_date')->nullable();
+
+            $table->enum('semester', ['F', 'S'])->nullable();
             // $table->decimal('total_quotable', 13, 2);
             // $table->decimal('total_additional_quotable', 13, 2);
             // $table->decimal('subtotal', 13, 2);
@@ -79,11 +84,19 @@ class CreateEconomicComplementsTable extends Migration
 
         });
 
+        Schema::create('eco_com_applicant_types', function(Blueprint $table) {
+
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->timestamps();
+
+        });
+
         Schema::create('eco_com_applicants', function (Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->UnsignedBigInteger('economic_complement_id');
-            $table->UnsignedBigInteger('applicant_type_id');
+            $table->UnsignedBigInteger('eco_com_applicant_type_id');
             $table->string('identity_card')->required();
             $table->string('last_name')->nullable();
             $table->string('mothers_last_name')->nullable();
@@ -96,7 +109,7 @@ class CreateEconomicComplementsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('economic_complement_id')->references('id')->on('economic_complements')->onDelete('cascade');
-            $table->foreign('applicant_type_id')->references('id')->on('applicant_types');
+            $table->foreign('eco_com_applicant_type_id')->references('id')->on('eco_com_applicant_types');
 
         });
     }
@@ -109,6 +122,7 @@ class CreateEconomicComplementsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('eco_com_applicants');
+        Schema::dropIfExists('eco_com_applicant_types');
         Schema::dropIfExists('eco_com_submitted_documents');
         Schema::dropIfExists('eco_com_requirements');
         Schema::dropIfExists('economic_complements');
