@@ -67,19 +67,19 @@ class ImportPayroll extends Command
                         ini_set('max_input_time', '-1');
                         set_time_limit('-1');
 
-                        if (!isset($result->car) or !isset($result->pat) or !isset($result->mat) or !isset($result->nom) or
-                            !isset($result->nom2) or !isset($result->apes) or !isset($result->eciv) or !isset($result->sex) or
-                            !isset($result->nac) or !isset($result->ing) or !isset($result->mes) or !isset($result->a_o) or
-                            !isset($result->uni) or !isset($result->desg) or !isset($result->niv) or !isset($result->gra) or
-                            !isset($result->item) or !isset($result->sue) or !isset($result->cat) or !isset($result->est) or
-                            !isset($result->carg) or !isset($result->fro) or !isset($result->ori) or
-                            //  !isset($result->bseg) or
-                            !isset($result->dfu) or !isset($result->nat) or !isset($result->lac) or !isset($result->pre) or
-                            !isset($result->sub) or !isset($result->gan) or !isset($result->afp) or !isset($result->pag) or
-                            !isset($result->nua) or !isset($result->mus)) {
-                            $this->error('Missing columns in the file!');
-                            exit();
-                        }
+                        // if (!isset($result->car) or !isset($result->pat) or !isset($result->mat) or !isset($result->nom) or
+                        //     !isset($result->nom2) or !isset($result->apes) or !isset($result->eciv) or !isset($result->sex) or
+                        //     !isset($result->nac) or !isset($result->ing) or !isset($result->mes) or !isset($result->a_o) or
+                        //     !isset($result->uni) or !isset($result->desg) or !isset($result->niv) or !isset($result->gra) or
+                        //     !isset($result->item) or !isset($result->sue) or !isset($result->cat) or !isset($result->est) or
+                        //     !isset($result->carg) or !isset($result->fro) or !isset($result->ori) or
+                        //     //  !isset($result->bseg) or
+                        //     !isset($result->dfu) or !isset($result->nat) or !isset($result->lac) or !isset($result->pre) or
+                        //     !isset($result->sub) or !isset($result->gan) or !isset($result->afp) or !isset($result->pag) or
+                        //     !isset($result->nua) or !isset($result->mus)) {
+                        //     $this->error('Missing columns in the file!');
+                        //     exit();
+                        // }
 
                         switch ($FolderName) {
 
@@ -223,64 +223,65 @@ class ImportPayroll extends Command
                         $affiliate->registration = Util::CalcRegistration($affiliate->birth_date, $affiliate->last_name, $affiliate->mothers_last_name, $affiliate->first_name, $affiliate->gender);
                         $affiliate->save();
 
-                        if (Util::decimal($result->sue)<> 0) {
-
-                            $contribution = Contribution::where('month_year', '=', $month_year)
-                                                        ->where('affiliate_id', '=', $affiliate->id)->first();
-                            if (!$contribution) {
-
-                                $contribution = new Contribution;
-                                $contribution->user_id = 1;
-                                $contribution->contribution_type_id = 1;
-
-                                $contribution->affiliate_id = $affiliate->id;
-                                $contribution->month_year = $month_year;
-                                if ($result->uni) {
-                                    $contribution->unit_id = $unit_id;
-                                }
-                                $contribution->breakdown_id = $breakdown_id;
-                                if ($result->gra) {
-                                    $contribution->degree_id = $degree_id;
-                                }
-                                $contribution->category_id = $category_id;
-                                $contribution->item = $result->item;
-
-                                $contribution->base_wage = Util::decimal($result->sue);
-                                $contribution->seniority_bonus = Util::decimal($result->cat);
-                                $contribution->study_bonus = Util::decimal($result->est);
-                                $contribution->position_bonus = Util::decimal($result->carg);
-                                $contribution->border_bonus = Util::decimal($result->fro);
-                                $contribution->east_bonus = Util::decimal($result->ori);
-                                $contribution->public_security_bonus = Util::decimal($result->bseg);
-
-                                $contribution->deceased = $result->dfu;
-                                $contribution->natality = $result->nat;
-                                $contribution->lactation = $result->lac;
-                                $contribution->prenatal = $result->pre;
-                                $contribution->subsidy = Util::decimal($result->sub);
-
-                                $contribution->gain = Util::decimal($result->gan);
-                                $contribution->payable_liquid = Util::decimal($result->pag);
-                                $contribution->quotable = (FLOAT)$contribution->base_wage +
-                                                          (FLOAT)$contribution->seniority_bonus +
-                                                          (FLOAT)$contribution->study_bonus +
-                                                          (FLOAT)$contribution->position_bonus +
-                                                          (FLOAT)$contribution->border_bonus +
-                                                          (FLOAT)$contribution->east_bonus;
-
-                                $contribution->total = Util::decimal($result->mus);
-                                $percentage = round(($contribution->total / $contribution->quotable) * 100, 1);
-                                if ($percentage == 2.5) {
-                                    $contribution->retirement_fund = $contribution->total * 1.85 / $percentage;
-                                    $contribution->mortuary_quota = $contribution->total * 0.65 / $percentage;
-                                }else {
-                                    $this->error('Unknown percentage of contribution!');
-                                    exit();
-                                }
-                                $contribution->save();
-                                $NewContri ++;
-                            }
-                        }
+                        // if (Util::decimal($result->sue)<> 0) {
+                        //
+                        //     $contribution = Contribution::where('month_year', '=', $month_year)
+                        //                                 ->where('affiliate_id', '=', $affiliate->id)->first();
+                        //     if (!$contribution) {
+                        //
+                        //         $contribution = new Contribution;
+                        //         $contribution->user_id = 1;
+                        //         $contribution->contribution_type_id = 1;
+                        //
+                        //         $contribution->affiliate_id = $affiliate->id;
+                        //         $contribution->month_year = $month_year;
+                        //         if ($result->uni) {
+                        //             $contribution->unit_id = $unit_id;
+                        //         }
+                        //         $contribution->breakdown_id = $breakdown_id;
+                        //         if ($result->gra) {
+                        //             $contribution->degree_id = $degree_id;
+                        //         }
+                        //         $contribution->category_id = $category_id;
+                        //         $contribution->item = $result->item;
+                        //
+                        //         $contribution->base_wage = Util::decimal($result->sue);
+                        //         $contribution->seniority_bonus = Util::decimal($result->cat);
+                        //         $contribution->study_bonus = Util::decimal($result->est);
+                        //         $contribution->position_bonus = Util::decimal($result->carg);
+                        //         $contribution->border_bonus = Util::decimal($result->fro);
+                        //         $contribution->east_bonus = Util::decimal($result->ori);
+                        //         $contribution->public_security_bonus = Util::decimal($result->bseg);
+                        //
+                        //         $contribution->deceased = $result->dfu;
+                        //         $contribution->natality = $result->nat;
+                        //         $contribution->lactation = $result->lac;
+                        //         $contribution->prenatal = $result->pre;
+                        //         $contribution->subsidy = Util::decimal($result->sub);
+                        //
+                        //         $contribution->gain = Util::decimal($result->gan);
+                        //         $contribution->payable_liquid = Util::decimal($result->pag);
+                        //         $contribution->quotable = (FLOAT)$contribution->base_wage +
+                        //                                   (FLOAT)$contribution->seniority_bonus +
+                        //                                   (FLOAT)$contribution->study_bonus +
+                        //                                   (FLOAT)$contribution->position_bonus +
+                        //                                   (FLOAT)$contribution->border_bonus +
+                        //                                   (FLOAT)$contribution->east_bonus;
+                        //
+                        //         $contribution->total = Util::decimal($result->mus);
+                        //         $percentage = round(($contribution->total / $contribution->quotable) * 100, 1);
+                        //         if ($percentage == 2.5) {
+                        //             $contribution->retirement_fund = $contribution->total * 1.85 / $percentage;
+                        //             $contribution->mortuary_quota = $contribution->total * 0.65 / $percentage;
+                        //         }else {
+                        //             $this->error('Unknown percentage of contribution!');
+                        //             exit();
+                        //         }
+                        //         $contribution->save();
+                        //         $NewContri ++;
+                        //     }
+                        // }
+                        //
 
                         $Progress->advance();
 
@@ -296,7 +297,7 @@ class ImportPayroll extends Command
                 $TotalNewAffi = $NewAffi ? $NewAffi : "0";
                 $TotalUpdateAffi = $UpdateAffi ? $UpdateAffi : "0";
                 $TotalAffi = $TotalAffi ? $TotalAffi : "0";
-                $TotalNewContri = $NewContri ? $NewContri : "0";
+                // $TotalNewContri = $NewContri ? $NewContri : "0";
 
                 $Progress->finish();
 
@@ -304,14 +305,14 @@ class ImportPayroll extends Command
                     $TotalNewAffi new affiliates.\n
                     $TotalUpdateAffi affiliates successfully updated.\n
                     Total $TotalAffi affiliates.\n
-                    Total $TotalNewContri entered contributions.\n
+
                     Execution time $execution_time [minutes].\n");
 
                 \Storage::disk('local')->put('ImportPayroll_'. $Date.'.txt', "\n\nReport:\n\n
                     $TotalNewAffi new affiliates.\n
                     $TotalUpdateAffi affiliates successfully updated.\n
                     Total $TotalAffi affiliates.\n
-                    Total $TotalNewContri entered contributions.\n
+
                     Execution time $execution_time [minutes].\n");
             }
         }
