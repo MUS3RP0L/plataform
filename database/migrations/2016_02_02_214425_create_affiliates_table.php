@@ -123,6 +123,7 @@ class CreateAffiliatesTable extends Migration
             $table->string('mothers_last_name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('second_name')->nullable();
+            $table->string('name')->nullable();
             $table->string('surname_husband')->nullable();
             $table->enum('civil_status', ['C', 'S', 'V', 'D'])->nullable();
             $table->enum('gender', ['M', 'F']);

@@ -119,10 +119,10 @@ class ImportAffiEcoCom extends Command
                         //     break;
                         //
                         //     default:
-                                $first_name = $result->nom;
-                                $second_name = $result->nom2;
-                                $birth_date = Util::date($result->nac);
-                                $date_entry = Util::date($result->ing);
+                                // $first_name = $result->nom;
+                                // $second_name = $result->nom2;
+                                // $birth_date = Util::date($result->nac);
+                                // $date_entry = Util::date($result->ing);
                         // }
                         // $Date = Util::zero($result->mes) . "-" . Util::formatYear($result->a_o);
 
@@ -158,15 +158,17 @@ class ImportAffiEcoCom extends Command
                         $affiliate = Affiliate::where('identity_card', '=', Util::zero($result->car))->first();
 
                         if (!$affiliate) {
-                            $affiliate = Affiliate::where('last_name', '=', $result->pat)->where('mothers_last_name', '=', $result->mat)
-                                                ->where('birth_date', '=', $birth_date)->where('date_entry', '=', $date_entry)
-                                                ->where('identity_card', '=', Util::RepeatedIdentityCard($result->car))->first();
+                            // $affiliate = Affiliate::where('last_name', '=', $result->pat)->where('mothers_last_name', '=', $result->mat)
+                            //                     ->where('birth_date', '=', $birth_date)->where('date_entry', '=', $date_entry)
+                            //                     ->where('identity_card', '=', Util::RepeatedIdentityCard($result->car))->first();
 
                             if (!$affiliate) {
 
                                 $affiliate = new Affiliate;
                                 $affiliate->identity_card = Util::zero($result->car);
-                                $affiliate->gender = $result->sex;
+                                $affiliate->name = Util::zero($result->name);
+
+                                
                                 $NewAffi ++;
 
                             }
