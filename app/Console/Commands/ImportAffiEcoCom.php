@@ -15,6 +15,7 @@ use Muserpol\Degree;
 use Muserpol\Category;
 use Muserpol\Unit;
 use Muserpol\Contribution;
+use Muserpol\EconomicComplementModality;
 
 class ImportAffiEcoCom extends Command
 {
@@ -168,7 +169,7 @@ class ImportAffiEcoCom extends Command
                                 $affiliate->identity_card = Util::zero($result->car);
                                 $affiliate->name = Util::zero($result->name);
 
-                                
+
                                 $NewAffi ++;
 
                             }

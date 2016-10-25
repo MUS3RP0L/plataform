@@ -153,7 +153,7 @@ class ImportPayroll extends Command
                             $degree_id = Degree::select('id')->where('code_level', $result->niv)->where('code_degree', $result->gra)->first()->id;
                         }
 
-                        $category_id = Category::select('id')->where('percentage', Util::CalcCategory(Util::decimal($result->cat),Util::decimal($result->sue)))->first()->id;
+                        // $category_id = Category::select('id')->where('percentage', Util::CalcCategory(Util::decimal($result->cat),Util::decimal($result->sue)))->first()->id;
 
                         $affiliate = Affiliate::where('identity_card', '=', Util::zero($result->car))->first();
 
@@ -207,7 +207,7 @@ class ImportPayroll extends Command
                             $affiliate->degree_id = $degree_id;
                         }
 
-                        $affiliate->category_id = $category_id;
+                        // $affiliate->category_id = $category_id;
                         $affiliate->user_id = 1;
                         $affiliate->last_name = Util::replaceCharacter($result->pat);
                         $affiliate->mothers_last_name = Util::replaceCharacter($result->mat);
