@@ -27,7 +27,7 @@ class DegreeTableSeeder extends Seeder
             ['id' => '2', 'code_level' => '00', 'code_degree' => '01', 'name' => 'COMANDANTE GRAL', 'shortened' => 'CMTE. GRAL.'],
             ['id' => '3', 'code_level' => '00', 'code_degree' => '02', 'name' => 'SUBCOMANDANTE', 'shortened' => 'SBCMTE. GRAL.'],
             ['id' => '4', 'code_level' => '00', 'code_degree' => '03', 'name' => 'INSPECTOR GENERAL', 'shortened' => 'INSP. GRAL.'],
-            ['id' => '5', 'code_level' => '00', 'code_degree' => '04', 'name' => 'GENERAL', 'shortened' => 'GRAL.'],
+            ['id' => '5', 'code_level' => '00', 'code_degree' => '04', 'name' => 'DIRECTOR GENERAL', 'shortened' => 'GRAL.'],
             ['id' => '6', 'code_level' => '01', 'code_degree' => '01', 'name' => 'CORONEL CON SUELDO DE GENERAL', 'shortened' => 'CNL.'],
             ['id' => '7', 'code_level' => '01', 'code_degree' => '02', 'name' => 'CORONEL', 'shortened' => 'CNL.'],
             ['id' => '8', 'code_level' => '01', 'code_degree' => '03', 'name' => 'TENIENTE CORONEL', 'shortened' => 'TCNL.'],
