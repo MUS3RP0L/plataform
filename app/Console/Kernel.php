@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
 
-        \Muserpol\Console\Commands\ImportPayroll::class,
+        // \Muserpol\Console\Commands\ImportPayroll::class,
         \Muserpol\Console\Commands\CreateIpcRate::class,
         \Muserpol\Console\Commands\CreateContributionRate::class,
         \Muserpol\Console\Commands\ImportReimbursement::class,
