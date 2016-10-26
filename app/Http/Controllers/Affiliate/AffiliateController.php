@@ -380,6 +380,41 @@ class AffiliateController extends Controller
         return $pdf->stream();
     }
 
+    public function print_declaracion1($affiliate)
+    {
+      $header1 = "DIRECCIÓN DE BENEFICIOS ECONÓMICOS";
+      $header2 = "UNIDAD DE OTORGACIÓN DEL COMPLEMENTO ECONÓMICO";
+      $title = "FORMULARIO DE DECLARACIÓN JURADA VOLUNTARIA";
+      $date = Util::getDateEdit(date('Y-m-d'));
+      $current_date = Carbon::now();
+      $hour = Carbon::parse($current_date)->toTimeString();
+      $data = $this->getData($affiliate);
+      $affiliate = $data['affiliate'];
+      $view = \View::make('affiliates.print.declaracion1', compact('header1','header2','title','date','hour','affiliate'))->render();
+      $pdf = \App::make('dompdf.wrapper');
+      $pdf->loadHTML($view)->setPaper('legal');
+      return $pdf->stream();
+
+    }
+    public function print_declaracion2($affiliate)
+    {
+      $header1 = "DIRECCIÓN DE BENEFICIOS ECONÓMICOS";
+      $header2 = "UNIDAD DE OTORGACIÓN DEL COMPLEMENTO ECONÓMICO";
+      $title = "FORMULARIO DE DECLARACIÓN JURADA VOLUNTARIA";
+      $date = Util::getDateEdit(date('Y-m-d'));
+      $current_date = Carbon::now();
+      $hour = Carbon::parse($current_date)->toTimeString();
+      $data = $this->getData($affiliate);
+      $affiliate = $data['affiliate'];
+      $spouse = $data['spouse'];
+      $view = \View::make('affiliates.print.declaracion2', compact('header1','header2','title','date','hour','affiliate','spouse'))->render();
+      $pdf = \App::make('dompdf.wrapper');
+      $pdf->loadHTML($view)->setPaper('legal');
+      return $pdf->stream();
+
+    }
+
+
 
 
 }

@@ -100,12 +100,12 @@
       </div>
     </td>
   </tr>
-</table>
+</table><br><br><br><br><br><br><br><br>
 
 <div class="title"><b>III. RESUMEN DE APORTE</b></div>
     <div id="project">
         <table>
-            <tr>
+        <tr>
           <td colspan="6" class="grand service" style="text-align:center;">DATOS DE APORTES</td>
         </tr>
         <tr>
@@ -137,7 +137,7 @@
               <tr>
                 <th style="width: 25%;border: 0px;">
                   <div id="logo">
-                    <img src="assets/images/logo.jpg">
+                    <img src="img/logo.jpg">
                   </div>
                 </th>
                 <th style="width: 50%;border: 0px">
@@ -147,7 +147,7 @@
                 </th>
                 <th style="width: 25%;border: 0px">
                   <div id="logo2">
-                    <img src="assets/images/escudo.jpg">
+                    <img src="img/escudo.jpg">
                   </div>
                 </th>
               </tr>

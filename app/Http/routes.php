@@ -27,7 +27,11 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('user/block/{user}', array('as'=>'user/block', 'uses'=>'User\UserController@Block'));
 	Route::get('user/unblock/{user}', array('as'=>'user/unblock', 'uses'=>'User\UserController@Unblock'));
+	Route::get('print_user', array('as'=>'print_user', 'uses'=>'User\UserController@print_user'));
+
 	Route::get('get_user', array('as'=>'get_user', 'uses'=>'User\UserController@Data'));
+
+
 
 	// Contribution Rate
 	Route::resource('contribution_rate', 'Rate\ContributionRateController');
@@ -57,6 +61,8 @@ Route::group(['middleware' => 'auth'], function() {
 	// Affiliate
 	Route::resource('affiliate', 'Affiliate\AffiliateController');
 	Route::get('print_affiliate/{affiliate_id}', 'Affiliate\AffiliateController@print_affiliate');
+	Route::get('print_declaracion1/{affiliate_id}', 'Affiliate\AffiliateController@print_declaracion1');
+	Route::get('print_declaracion2/{affiliate_id}', 'Affiliate\AffiliateController@print_declaracion2');
 	Route::post('search_affiliate', array('as'=>'search_affiliate', 'uses'=>'Affiliate\AffiliateController@SearchAffiliate'));
 	Route::get('get_affiliate', array('as'=>'get_affiliate', 'uses'=>'Affiliate\AffiliateController@Data'));
 
