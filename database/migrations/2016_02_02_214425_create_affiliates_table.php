@@ -162,6 +162,21 @@ class CreateAffiliatesTable extends Migration
             $table->boolean('afp')->nullable();
             $table->bigInteger('nua')->nullable();
             $table->bigInteger('item')->nullable();
+
+
+            $table->UnsignedBigInteger('b_city_identity_card_id')->nullable();
+            $table->string('b_identity_card')->required();
+            $table->string('b_last_name')->nullable();
+            $table->string('b_mothers_last_name')->nullable();
+            $table->string('b_first_name')->nullable();
+            $table->string('b_second_name')->nullable();
+            $table->string('b_name')->nullable();
+            $table->string('b_surname_husband')->nullable();
+            $table->date('b_birth_date')->nullable();
+            $table->date('b_date_death')->nullable();
+            $table->string('b_reason_death')->nullable();
+            $table->bigInteger('b_nua')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
@@ -174,6 +189,7 @@ class CreateAffiliatesTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('pension_entity_id')->references('id')->on('pension_entities');
             $table->foreign('eco_com_modality_id')->references('id')->on('eco_com_modalities');
+            $table->foreign('b_city_identity_card_id')->references('id')->on('cities');
 
         });
 
@@ -196,18 +212,23 @@ class CreateAffiliatesTable extends Migration
             $table->bigIncrements('id');
             $table->UnsignedBigInteger('user_id');
             $table->UnsignedBigInteger('affiliate_id');
+            $table->UnsignedBigInteger('city_identity_card_id')->nullable();
             $table->string('identity_card')->required();
             $table->string('last_name')->nullable();
             $table->string('mothers_last_name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('second_name')->nullable();
+            $table->string('name')->nullable();
+            $table->string('surname_husband')->nullable();
             $table->date('birth_date')->nullable();
             $table->date('date_death')->nullable();
             $table->string('reason_death')->nullable();
+            $table->bigInteger('nua')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('affiliate_id')->references('id')->on('affiliates')->onDelete('cascade');
+            $table->foreign('city_identity_card_id')->references('id')->on('cities');
 
         });
 

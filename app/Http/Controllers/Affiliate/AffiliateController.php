@@ -34,14 +34,16 @@ class AffiliateController extends Controller
 
     public function Data(Request $request)
     {
-        $affiliates = Affiliate::select(['id', 'identity_card', 'registration', 'last_name', 'mothers_last_name', 'first_name', 'second_name',  'affiliate_state_id', 'degree_id']);
+        $affiliates = Affiliate::select(['id', 'identity_card','city_identity_card_id', 'registration', 'last_name',
+        'mothers_last_name', 'first_name', 'second_name',  'affiliate_state_id', 'degree_id',
+        'eco_com_modality_id', 'b_identity_card', 'b_city_identity_card_id', 'b_name','b_last_name']);
 
         if ($request->has('last_name'))
         {
             $affiliates->where(function($affiliates) use ($request)
             {
                 $last_name = trim($request->get('last_name'));
-                $affiliates->where('last_name', 'like', "%{$last_name}%");
+                $affiliates->where('last_name', 'like', "%{$last_name}%")->orwhere('b_last_name', 'like', "%{$last_name}%");;
             });
         }
         if ($request->has('mothers_last_name'))
@@ -49,7 +51,7 @@ class AffiliateController extends Controller
             $affiliates->where(function($affiliates) use ($request)
             {
                 $mothers_last_name = trim($request->get('mothers_last_name'));
-                $affiliates->where('mothers_last_name', 'like', "%{$mothers_last_name}%");
+                $affiliates->where('mothers_last_name', 'like', "%{$mothers_last_name}%")->orwhere('b_mothers_last_name', 'like', "%{$mothers_last_name}%");;
             });
         }
         if ($request->has('first_name'))
@@ -57,7 +59,7 @@ class AffiliateController extends Controller
             $affiliates->where(function($affiliates) use ($request)
             {
                 $first_name = trim($request->get('first_name'));
-                $affiliates->where('first_name', 'like', "%{$first_name}%");
+                $affiliates->where('first_name', 'like', "%{$first_name}%")->orwhere('b_first_name', 'like', "%{$first_name}%");;
             });
         }
         if ($request->has('second_name'))
@@ -65,7 +67,7 @@ class AffiliateController extends Controller
             $affiliates->where(function($affiliates) use ($request)
             {
                 $second_name = trim($request->get('second_name'));
-                $affiliates->where('second_name', 'like', "%{$second_name}%");
+                $affiliates->where('second_name', 'like', "%{$second_name}%")->orwhere('b_second_name', 'like', "%{$second_name}%");
             });
         }
         if ($request->has('identity_card'))
@@ -73,33 +75,27 @@ class AffiliateController extends Controller
             $affiliates->where(function($affiliates) use ($request)
             {
                 $identity_card = trim($request->get('identity_card'));
-                $affiliates->where('identity_card', 'like', "%{$identity_card}%");
-            });
-        }
-        if ($request->has('registration'))
-        {
-            $affiliates->where(function($affiliates) use ($request)
-            {
-                $registration = trim($request->get('registration'));
-                $affiliates->where('registration', 'like', "%{$registration}%");
+                $affiliates->where('identity_card', 'like', "%{$identity_card}%")->orwhere('b_identity_card', 'like', "%{$identity_card}%");
             });
         }
 
+
+
         return Datatables::of($affiliates)
                 ->addColumn('degree', function ($affiliate) { return $affiliate->degree_id ? $affiliate->degree->shortened : ''; })
+                ->editColumn('identity_card', function ($affiliate) { return $affiliate->city_identity_card_id ? $affiliate->identity_card .' '. City::idIs($affiliate->city_identity_card_id)->first()->shortened : $affiliate->identity_card; })
                 ->editColumn('last_name', function ($affiliate) { return Util::ucw($affiliate->last_name); })
                 ->editColumn('mothers_last_name', function ($affiliate) { return Util::ucw($affiliate->mothers_last_name); })
                 ->addColumn('names', function ($affiliate) { return Util::ucw($affiliate->first_name) .' '. Util::ucw($affiliate->second_name); })
-                ->addColumn('state', function ($affiliate) { return $affiliate->affiliate_state->name; })
+
+                ->editColumn('b_identity_card', function ($affiliate) { return $affiliate->b_city_identity_card_id ? $affiliate->b_identity_card .' '. City::idIs($affiliate->b_city_identity_card_id)->first()->shortened : $affiliate->b_identity_card; })
+
+                ->editColumn('b_name', function ($affiliate) { return Util::ucw($affiliate->b_name); })
+
+                ->addColumn('modality', function ($affiliate) { return $affiliate->eco_com_modality->name; })
                 ->addColumn('action', function ($affiliate) { return  '
                         <div class="btn-group" style="margin:-3px 0;">
                             <a href="affiliate/'.$affiliate->id.'" class="btn btn-success btn-raised btn-sm"><i class="glyphicon glyphicon-eye-open"></i></a>
-                            <a href="" data-target="#" class="btn btn-success btn-raised btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="selectgestaporte/'.$affiliate->id.'" style="padding:3px 10px;"><i class="glyphicon glyphicon-plus"></i> Aporte</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="tramite_fondo_retiro/'.$affiliate->id.'" style="padding:3px 10px;"><i class="glyphicon glyphicon-plus"></i> Trámite FR</a></li>
-                            </ul>
                         </div>';})
                 ->make(true);
     }

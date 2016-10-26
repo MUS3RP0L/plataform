@@ -64,14 +64,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            {!! Form::label('registration', 'Número Matrícula', ['class' => 'col-md-5 control-label']) !!}
-                                            <div class="col-md-7">
-                                                {!! Form::text('registration', '', ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <br>
                             </div>
@@ -91,16 +83,24 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table table-hover" id="affiliates-table">
+                            <table class="table table-bordered table-hover" id="affiliates-table">
                                 <thead>
+
+                                    <tr class="success">
+                                        <th style="text-align:center;" colspan="5">Afiliado</th>
+                                        <th style="text-align:center;" colspan="2">Beneficiario</th>
+                                        <th style="text-align:center;" colspan="2">.</th>
+                                    </tr>
+
                                     <tr class="success">
                                         <th>Núm. Carnet</th>
-                                        <th>Matrícula</th>
                                         <th>Grado</th>
                                         <th>Nombres</th>
                                         <th>Apellido Paterno</th>
                                         <th>Apellido Materno</th>
-                                        <th>Estado</th>
+                                        <th>Núm. Carnet</th>
+                                        <th>Nombre Completo</th>
+                                        <th>Modalidad</th>
                                         <th>Acción</th>
                                     </tr>
                                 </thead>
@@ -119,6 +119,7 @@
 
     var oTable = $('#affiliates-table').DataTable({
         "dom": '<"top">t<"bottom"p>',
+        "order": [[ 0, "desc" ]],
         processing: true,
         serverSide: true,
         pageLength: 8,
@@ -130,19 +131,19 @@
                 d.mothers_last_name = $('input[name=mothers_last_name]').val();
                 d.first_name = $('input[name=first_name]').val();
                 d.second_name = $('input[name=second_name]').val();
-                d.registration = $('input[name=registration]').val();
                 d.identity_card = $('input[name=num_identity_card]').val();
                 d.post = $('input[name=post]').val();
             }
         },
         columns: [
             { data: 'identity_card' },
-            { data: 'registration', bSortable: false },
             { data: 'degree', bSortable: false },
             { data: 'names', bSortable: false },
             { data: 'last_name', bSortable: false },
             { data: 'mothers_last_name', bSortable: false },
-            { data: 'state', bSortable: false },
+            { data: 'b_identity_card' },
+            { data: 'b_name', bSortable: false },
+            { data: 'modality', bSortable: false },
             { data: 'action', name: 'action', orderable: false, searchable: false, bSortable: false, sClass: 'text-center' }
         ]
     });

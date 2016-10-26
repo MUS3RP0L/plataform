@@ -83,6 +83,11 @@ class Affiliate extends Model
         return $this->belongsTo('Muserpol\Degree');
     }
 
+    public function eco_com_modality(){
+
+        return $this->belongsTo('Muserpol\EconomicComplementModality');
+    }
+
     public function unit(){
 
         return $this->belongsTo('Muserpol\Unit');

@@ -14,6 +14,7 @@ use Muserpol\Breakdown;
 use Muserpol\Degree;
 use Muserpol\Category;
 use Muserpol\Unit;
+use Muserpol\Spouse;
 // use Muserpol\Contribution;
 
 use Muserpol\City;
@@ -76,60 +77,103 @@ class ImportAffiEcoCom extends Command
                         switch ($eco_com_type_id) {
 
                             case '1':
-                                $affiliate->affiliate_state_id = 5;
-                            break;
 
-                            case '2':
-                                $affiliate->affiliate_state_id = 4;
-                            break;
+                                // $affiliate = Affiliate::where('identity_card', '=', Util::zero($result->ci))->first();
 
-                            case '3':
-                                $affiliate->affiliate_state_id = 4;
-                            break;
-
-                            default:
-                                $affiliate->affiliate_state_id = 1;
-                        }
-
-
-
-                        $affiliate = Affiliate::where('identity_card', '=', Util::zero($result->ci))->first();
-
-                        if (!$affiliate) {
+                                // if (!$affiliate) {
 
                                 $affiliate = new Affiliate;
                                 $affiliate->identity_card = Util::zero($result->ci);
                                 $affiliate->name = Util::zero($result->name);
                                 $NewAffi ++;
 
+                                // }
+                                // else{$UpdateAffi ++;}
+                                if($result->city_identity_card <> "NN")
+                                {$city_identity_card_id = City::select('id')->where('shortened', $result->city_identity_card)->first()->id;
+                                $affiliate->city_identity_card_id = $city_identity_card_id;
+                                }
+                                $city_id = City::select('id')->where('name', $result->city)->first()->id;
+                                $affiliate->city_id = $city_id;
+                                $degree_id = Degree::select('id')->where('shortened', $result->degree)->first()->id;
+                                $affiliate->degree_id = $degree_id;
+                                $eco_com_modality_id = EconomicComplementModality::select('id')->where('name', $result->modality)->first()->id;
+                                $affiliate->eco_com_modality_id = $eco_com_modality_id;
+                                $pension_entity_id = PensionEntity::select('id')->where('name', $result->pension_entity)->first()->id;
+                                $affiliate->pension_entity_id = $pension_entity_id;
+                                $category_id = Category::select('id')->where('name', $result->category)->first()->id;
+                                $affiliate->category_id = $category_id;
+
+                                $affiliate->affiliate_state_id = 5;
+                                $affiliate->user_id = 1;
+                                $affiliate->last_name = Util::replaceCharacter($result->pat);
+                                $affiliate->mothers_last_name = Util::replaceCharacter($result->mat);
+                                $affiliate->first_name = Util::replaceCharacter($result->nom);
+                                $affiliate->second_name = Util::replaceCharacter($result->nom2);
+                                $affiliate->surname_husband = Util::replaceCharacter($result->apes);
+                                $affiliate->save();
+
+                                $Progress->advance();
+
+
+                            break;
+
+                            case '2':
+
+                                // $affiliate = Affiliate::where('identity_card', '=', Util::zero($result->ci))->first();
+
+                                // if (!$affiliate) {
+
+                                $affiliate = new Affiliate;
+
+                                $NewAffi ++;
+
+                                // }
+                                // else{$UpdateAffi ++;}
+
+                                $city_id = City::select('id')->where('name', $result->city)->first()->id;
+                                $affiliate->city_id = $city_id;
+                                $degree_id = Degree::select('id')->where('shortened', $result->degree)->first()->id;
+                                $affiliate->degree_id = $degree_id;
+                                $eco_com_modality_id = EconomicComplementModality::select('id')->where('name', $result->modality)->first()->id;
+                                $affiliate->eco_com_modality_id = $eco_com_modality_id;
+                                $pension_entity_id = PensionEntity::select('id')->where('name', $result->pension_entity)->first()->id;
+                                $affiliate->pension_entity_id = $pension_entity_id;
+                                $category_id = Category::select('id')->where('name', $result->category)->first()->id;
+                                $affiliate->category_id = $category_id;
+
+                                $affiliate->affiliate_state_id = 4;
+                                $affiliate->user_id = 1;
+                                $affiliate->save();
+
+                                if($result->city_identity_card <> "NN")
+                                {$city_identity_card_id = City::select('id')->where('shortened', $result->city_identity_card)->first()->id;
+                                $affiliate->b_city_identity_card_id = $city_identity_card_id;
+                                }
+
+                                $affiliate->b_identity_card = Util::zero($result->ci);
+                                $affiliate->b_name = Util::zero($result->name);
+                                $affiliate->b_last_name = Util::replaceCharacter($result->pat);
+                                $affiliate->b_mothers_last_name = Util::replaceCharacter($result->mat);
+                                $affiliate->b_first_name = Util::replaceCharacter($result->nom);
+                                $affiliate->b_second_name = Util::replaceCharacter($result->nom2);
+                                $affiliate->b_surname_husband = Util::replaceCharacter($result->apes);
+                                $affiliate->save();
+
+                                $Progress->advance();
+
+                            break;
+
+                            case '3':
+                                // $affiliate->affiliate_state_id = 4;
+                            break;
+
+                            default:
+                                // $affiliate->affiliate_state_id = 1;
                         }
-                        else{$UpdateAffi ++;}
-                        if($result->city_identity_card <> "NN")
-                        {$city_identity_card_id = City::select('id')->where('shortened', $result->city_identity_card)->first()->id;
-                        $affiliate->city_identity_card_id = $city_identity_card_id;
-                        }
-                        $city_id = City::select('id')->where('name', $result->city)->first()->id;
-                        $affiliate->city_id = $city_id;
-                        $degree_id = Degree::select('id')->where('shortened', $result->degree)->first()->id;
-                        $affiliate->degree_id = $degree_id;
-                        $eco_com_modality_id = EconomicComplementModality::select('id')->where('name', $result->modality)->first()->id;
-                        $affiliate->eco_com_modality_id = $eco_com_modality_id;
-                        $pension_entity_id = PensionEntity::select('id')->where('name', $result->pension_entity)->first()->id;
-                        $affiliate->pension_entity_id = $pension_entity_id;
-                        $category_id = Category::select('id')->where('name', $result->category)->first()->id;
-                        $affiliate->category_id = $category_id;
 
 
 
-                        $affiliate->user_id = 1;
-                        $affiliate->last_name = Util::replaceCharacter($result->pat);
-                        $affiliate->mothers_last_name = Util::replaceCharacter($result->mat);
-                        $affiliate->first_name = Util::replaceCharacter($result->nom);
-                        $affiliate->second_name = Util::replaceCharacter($result->nom2);
-                        $affiliate->surname_husband = Util::replaceCharacter($result->apes);
-                        $affiliate->save();
-
-                        $Progress->advance();
 
                     });
 
