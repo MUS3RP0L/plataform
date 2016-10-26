@@ -12,30 +12,30 @@ class CreateEconomicComplementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('eco_com_types', function(Blueprint $table) {
-
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->timestamps();
-
-        });
-
-        Schema::create('eco_com_modalities', function(Blueprint $table) {
-
-            $table->bigIncrements('id');
-            $table->UnsignedBigInteger('eco_com_type_id');
-            $table->string('name');
-            $table->string('description');
-            $table->timestamps();
-            $table->foreign('eco_com_type_id')->references('id')->on('eco_com_types');
-
-        });
+        // Schema::create('eco_com_types', function(Blueprint $table) {
+        //
+        //     $table->bigIncrements('id');
+        //     $table->string('name');
+        //     $table->timestamps();
+        //
+        // });
+        //
+        // Schema::create('eco_com_modalities', function(Blueprint $table) {
+        //
+        //     $table->bigIncrements('id');
+        //     $table->UnsignedBigInteger('eco_com_type_id');
+        //     $table->string('name');
+        //     $table->string('description');
+        //     $table->timestamps();
+        //     $table->foreign('eco_com_type_id')->references('id')->on('eco_com_types');
+        //
+        // });
 
         Schema::create('economic_complements', function (Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->UnsignedBigInteger('affiliate_id');
-            $table->UnsignedBigInteger('eco_com_modality_id')->nullable();
+            // $table->UnsignedBigInteger('eco_com_modality_id')->nullable();
             $table->UnsignedBigInteger('city_id')->nullable();
             $table->date('first_ticket_month_id');
             $table->date('second_ticket_month_id')->nullable();
@@ -126,7 +126,7 @@ class CreateEconomicComplementsTable extends Migration
         Schema::dropIfExists('eco_com_submitted_documents');
         Schema::dropIfExists('eco_com_requirements');
         Schema::dropIfExists('economic_complements');
-        Schema::dropIfExists('eco_com_modalities');
-        Schema::dropIfExists('eco_com_types');
+        // Schema::dropIfExists('eco_com_modalities');
+        // Schema::dropIfExists('eco_com_types');
     }
 }

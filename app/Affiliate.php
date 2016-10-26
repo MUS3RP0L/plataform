@@ -401,13 +401,13 @@ class Affiliate extends Model
 
 }
 
-Affiliate::created(function($affiliate)
-{
-    Record::CreatedAffiliate($affiliate);
-});
+// Affiliate::created(function($affiliate)
+// {
+//     Record::CreatedAffiliate($affiliate);
+// });
 
 Affiliate::updating(function($affiliate)
 {
     Activity::updateAffiliate($affiliate);
-    Record::UpdatingAffiliate($affiliate);
+    // Record::UpdatingAffiliate($affiliate);
 });

@@ -14,8 +14,11 @@ use Muserpol\Breakdown;
 use Muserpol\Degree;
 use Muserpol\Category;
 use Muserpol\Unit;
-use Muserpol\Contribution;
+// use Muserpol\Contribution;
+
+use Muserpol\City;
 use Muserpol\EconomicComplementModality;
+use Muserpol\PensionEntity;
 
 class ImportAffiEcoCom extends Command
 {
@@ -25,7 +28,7 @@ class ImportAffiEcoCom extends Command
      * @var string
      */
 
-    protected $signature = 'import:affiecocom';
+    protected $signature = 'import:eco';
 
     /**
      * The console command description.
@@ -120,8 +123,8 @@ class ImportAffiEcoCom extends Command
                         //     break;
                         //
                         //     default:
-                                // $first_name = $result->nom;
-                                // $second_name = $result->nom2;
+                                $first_name = $result->nom;
+                                $second_name = $result->nom2;
                                 // $birth_date = Util::date($result->nac);
                                 // $date_entry = Util::date($result->ing);
                         // }
@@ -156,7 +159,7 @@ class ImportAffiEcoCom extends Command
 
                         // $category_id = Category::select('id')->where('percentage', Util::CalcCategory(Util::decimal($result->cat),Util::decimal($result->sue)))->first()->id;
 
-                        $affiliate = Affiliate::where('identity_card', '=', Util::zero($result->car))->first();
+                        $affiliate = Affiliate::where('identity_card', '=', Util::zero($result->ci))->first();
 
                         if (!$affiliate) {
                             // $affiliate = Affiliate::where('last_name', '=', $result->pat)->where('mothers_last_name', '=', $result->mat)
@@ -166,8 +169,9 @@ class ImportAffiEcoCom extends Command
                             if (!$affiliate) {
 
                                 $affiliate = new Affiliate;
-                                $affiliate->identity_card = Util::zero($result->car);
+                                $affiliate->identity_card = Util::zero($result->ci);
                                 $affiliate->name = Util::zero($result->name);
+
 
 
                                 $NewAffi ++;
@@ -177,21 +181,41 @@ class ImportAffiEcoCom extends Command
                         }
                         else{$UpdateAffi ++;}
 
-                        // $affiliate->change_date = $month_year;
+                        $city_identity_card_id = City::select('id')->where('shortened', $result->city_identity_card)->first()->id;
+                        $affiliate->city_identity_card_id = $city_identity_card_id;
 
-                        // switch ($result->desg) {
+                        $city_id = City::select('id')->where('name', $result->city)->first()->id;
+                        $affiliate->city_id = $city_id;
+
+                        $degree_id = Degree::select('id')->where('shortened', $result->degree)->first()->id;
+                        $affiliate->degree_id = $degree_id;
+
+                        $eco_com_modality_id = EconomicComplementModality::select('id')->where('name', $result->modality)->first()->id;
+                        $affiliate->eco_com_modality_id = $eco_com_modality_id;
                         //
-                        //     case '1'://Disponibilidad
-                        //         $affiliate->affiliate_state_id = 3;
-                        //     break;
+                        $pension_entity_id = PensionEntity::select('id')->where('name', $result->pension_entity)->first()->id;
+                        $affiliate->pension_entity_id = $pension_entity_id;
                         //
-                        //     case '3'://Comisión
-                        //         $affiliate->affiliate_state_id = 2;
-                        //     break;
+                        $category_id = Category::select('id')->where('name', $result->category)->first()->id;
+                        $affiliate->category_id = $category_id;
+
+                        // $affiliate->change_date = $month_year;
                         //
-                        //     default://Servicio
-                        //         $affiliate->affiliate_state_id = 1;
-                        // }
+                        $eco_com_type_id = EconomicComplementModality::select('eco_com_type_id')->where('name', $result->modality)->first()->eco_com_type_id;
+
+                        switch ($eco_com_type_id) {
+
+                            case '1'://Disponibilidad
+                                $affiliate->affiliate_state_id = 5;
+                            break;
+
+                            case '2'://Comisión
+                                $affiliate->affiliate_state_id = 4;
+                            break;
+
+                            default://Servicio
+                                $affiliate->affiliate_state_id = 1;
+                        }
 
                         // switch ($result->desg) {
                         //
@@ -210,20 +234,20 @@ class ImportAffiEcoCom extends Command
                         //     $affiliate->degree_id = $degree_id;
                         // }
 
-                        $affiliate->category_id = $category_id;
+                        // $affiliate->category_id = $category_id;
                         $affiliate->user_id = 1;
                         $affiliate->last_name = Util::replaceCharacter($result->pat);
                         $affiliate->mothers_last_name = Util::replaceCharacter($result->mat);
                         $affiliate->first_name = Util::replaceCharacter($first_name);
                         $affiliate->second_name = Util::replaceCharacter($second_name);
                         $affiliate->surname_husband = Util::replaceCharacter($result->apes);
-                        $affiliate->civil_status = $result->eciv;
-                        // $affiliate->nua = $result->nua;
-                        // $affiliate->afp = Util::getAfp($result->afp);
-                        $affiliate->item = $result->item;
-                        $affiliate->birth_date = $birth_date;
-                        $affiliate->date_entry = $date_entry;
-                        $affiliate->registration = Util::CalcRegistration($affiliate->birth_date, $affiliate->last_name, $affiliate->mothers_last_name, $affiliate->first_name, $affiliate->gender);
+                        // $affiliate->civil_status = $result->eciv;
+                        // // $affiliate->nua = $result->nua;
+                        // // $affiliate->afp = Util::getAfp($result->afp);
+                        // $affiliate->item = $result->item;
+                        // $affiliate->birth_date = $birth_date;
+                        // $affiliate->date_entry = $date_entry;
+                        // $affiliate->registration = Util::CalcRegistration($affiliate->birth_date, $affiliate->last_name, $affiliate->mothers_last_name, $affiliate->first_name, $affiliate->gender);
                         $affiliate->save();
 
                         $Progress->advance();
@@ -250,11 +274,11 @@ class ImportAffiEcoCom extends Command
 
                     Execution time $execution_time [minutes].\n");
 
-                \Storage::disk('local')->put('ImportPayroll_'. $Date.'.txt', "\n\nReport:\n\n
-                    $TotalNewAffi new affiliates.\n
-                    $TotalUpdateAffi affiliates successfully updated.\n
-                    Total $TotalAffi affiliates.\n
-                    Execution time $execution_time [minutes].\n");
+                // \Storage::disk('local')->put('ImportPayroll_'. $Date.'.txt', "\n\nReport:\n\n
+                //     $TotalNewAffi new affiliates.\n
+                //     $TotalUpdateAffi affiliates successfully updated.\n
+                //     Total $TotalAffi affiliates.\n
+                //     Execution time $execution_time [minutes].\n");
             }
         }
         else{

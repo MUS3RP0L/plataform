@@ -194,13 +194,13 @@ class AffiliateController extends Controller
             'gender_list' => $gender_list,
             'info_address' => $info_address,
             'info_spouse' => $info_spouse,
-            'last_contribution' => $last_contribution,
-            'total_gain' => $total_gain,
-            'total_public_security_bonus' => $total_public_security_bonus,
-            'total_quotable' => $total_quotable,
-            'total_retirement_fund' => $total_retirement_fund,
-            'total_mortuary_quota' => $total_mortuary_quota,
-            'total' => $total
+            'last_contribution' => $last_contribution ? $last_contribution : 0,
+            'total_gain' => $total_gain ? $total_gain : 0,
+            'total_public_security_bonus' => $total_public_security_bonus ? $total_public_security_bonus : 0,
+            'total_quotable' => $total_quotable ? $total_quotable : 0,
+            'total_retirement_fund' => $total_retirement_fund ? $total_retirement_fund : 0,
+            'total_mortuary_quota' => $total_mortuary_quota ? $total_mortuary_quota : 0,
+            'total' => $total ? $total : 0
 
         ];
 
