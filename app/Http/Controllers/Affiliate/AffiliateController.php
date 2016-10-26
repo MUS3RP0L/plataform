@@ -194,13 +194,13 @@ class AffiliateController extends Controller
             'gender_list' => $gender_list,
             'info_address' => $info_address,
             'info_spouse' => $info_spouse,
-            'last_contribution' => $last_contribution,
-            'total_gain' => $total_gain,
-            'total_public_security_bonus' => $total_public_security_bonus,
-            'total_quotable' => $total_quotable,
-            'total_retirement_fund' => $total_retirement_fund,
-            'total_mortuary_quota' => $total_mortuary_quota,
-            'total' => $total
+            'last_contribution' => $last_contribution ? $last_contribution : 0,
+            'total_gain' => $total_gain ? $total_gain : 0,
+            'total_public_security_bonus' => $total_public_security_bonus ? $total_public_security_bonus : 0,
+            'total_quotable' => $total_quotable ? $total_quotable : 0,
+            'total_retirement_fund' => $total_retirement_fund ? $total_retirement_fund : 0,
+            'total_mortuary_quota' => $total_mortuary_quota ? $total_mortuary_quota : 0,
+            'total' => $total ? $total : 0
 
         ];
 
@@ -379,6 +379,41 @@ class AffiliateController extends Controller
         $pdf->loadHTML($view)->setPaper('legal','landscape');
         return $pdf->stream();
     }
+
+    public function print_declaracion1($affiliate)
+    {
+      $header1 = "DIRECCIÓN DE BENEFICIOS ECONÓMICOS";
+      $header2 = "UNIDAD DE OTORGACIÓN DEL COMPLEMENTO ECONÓMICO";
+      $title = "FORMULARIO DE DECLARACIÓN JURADA VOLUNTARIA";
+      $date = Util::getDateEdit(date('Y-m-d'));
+      $current_date = Carbon::now();
+      $hour = Carbon::parse($current_date)->toTimeString();
+      $data = $this->getData($affiliate);
+      $affiliate = $data['affiliate'];
+      $view = \View::make('affiliates.print.declaracion1', compact('header1','header2','title','date','hour','affiliate'))->render();
+      $pdf = \App::make('dompdf.wrapper');
+      $pdf->loadHTML($view)->setPaper('legal');
+      return $pdf->stream();
+
+    }
+    public function print_declaracion2($affiliate)
+    {
+      $header1 = "DIRECCIÓN DE BENEFICIOS ECONÓMICOS";
+      $header2 = "UNIDAD DE OTORGACIÓN DEL COMPLEMENTO ECONÓMICO";
+      $title = "FORMULARIO DE DECLARACIÓN JURADA VOLUNTARIA";
+      $date = Util::getDateEdit(date('Y-m-d'));
+      $current_date = Carbon::now();
+      $hour = Carbon::parse($current_date)->toTimeString();
+      $data = $this->getData($affiliate);
+      $affiliate = $data['affiliate'];
+      $spouse = $data['spouse'];
+      $view = \View::make('affiliates.print.declaracion2', compact('header1','header2','title','date','hour','affiliate','spouse'))->render();
+      $pdf = \App::make('dompdf.wrapper');
+      $pdf->loadHTML($view)->setPaper('legal');
+      return $pdf->stream();
+
+    }
+
 
 
 

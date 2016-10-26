@@ -104,6 +104,25 @@ class CreateAffiliatesTable extends Migration
 
         });
 
+        Schema::create('eco_com_types', function(Blueprint $table) {
+
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->timestamps();
+
+        });
+
+        Schema::create('eco_com_modalities', function(Blueprint $table) {
+
+            $table->bigIncrements('id');
+            $table->UnsignedBigInteger('eco_com_type_id');
+            $table->string('name');
+            $table->string('description');
+            $table->timestamps();
+            $table->foreign('eco_com_type_id')->references('id')->on('eco_com_types');
+
+        });
+
         Schema::create('affiliates', function (Blueprint $table) {
 
             $table->bigIncrements('id');
@@ -112,16 +131,20 @@ class CreateAffiliatesTable extends Migration
             $table->UnsignedBigInteger('affiliate_type_id')->nullable();
             $table->UnsignedBigInteger('city_identity_card_id')->nullable();
             $table->UnsignedBigInteger('city_birth_id')->nullable();
+            $table->UnsignedBigInteger('city_id')->nullable();
             $table->UnsignedBigInteger('degree_id')->nullable();
             $table->UnsignedBigInteger('unit_id')->nullable();
             $table->UnsignedBigInteger('category_id')->nullable();
             $table->UnsignedBigInteger('pension_entity_id')->nullable();
-            $table->string('identity_card')->unique()->required();
+            $table->UnsignedBigInteger('eco_com_modality_id')->nullable();
+            // $table->string('identity_card')->unique()->required();
+            $table->string('identity_card')->nullable();
             $table->string('registration')->nullable();
             $table->string('last_name')->nullable();
             $table->string('mothers_last_name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('second_name')->nullable();
+            $table->string('name')->nullable();
             $table->string('surname_husband')->nullable();
             $table->enum('civil_status', ['C', 'S', 'V', 'D'])->nullable();
             $table->enum('gender', ['M', 'F']);
@@ -150,6 +173,7 @@ class CreateAffiliatesTable extends Migration
             $table->foreign('unit_id')->references('id')->on('units');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('pension_entity_id')->references('id')->on('pension_entities');
+            $table->foreign('eco_com_modality_id')->references('id')->on('eco_com_modalities');
 
         });
 
@@ -218,6 +242,8 @@ class CreateAffiliatesTable extends Migration
         Schema::dropIfExists('spouses');
         Schema::dropIfExists('affiliate_address');
         Schema::dropIfExists('affiliates');
+        Schema::dropIfExists('eco_com_modalities');
+        Schema::dropIfExists('eco_com_types');
         Schema::dropIfExists('affiliate_types');
         Schema::dropIfExists('affiliate_states');
         Schema::dropIfExists('state_types');

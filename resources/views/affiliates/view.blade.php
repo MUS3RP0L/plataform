@@ -537,8 +537,6 @@
                                                     <div class="col-md-6">
                                                         Estado
                                                     </div>
-                                                    <div class="col-md-6" data-toggle="tooltip" data-placement="bottom" data-original-title="{!! $affiliate->affiliate_state->state_type->name !!}">
-                                                        {!! $affiliate->affiliate_state->name !!}
                                                     </div>
                                                 </div>
                                             </td>
@@ -549,7 +547,6 @@
                                                     <div class="col-md-6">
                                                         Tipo
                                                     </div>
-                                                    <div class="col-md-6">{!! $affiliate->affiliate_type->name !!}
                                                     </div>
                                                 </div>
                                             </td>
@@ -560,7 +557,6 @@
                                                     <div class="col-md-6">
                                                         Grado
                                                     </div>
-                                                    <div class="col-md-6" data-toggle="tooltip" data-placement="bottom" data-original-title="{!! $affiliate->degree->name !!}"> {!! $affiliate->degree->shortened !!}
                                                     </div>
                                                 </div>
                                             </td>
@@ -571,8 +567,6 @@
                                                     <div class="col-md-6">
                                                         Unidad
                                                     </div>
-                                                    <div class="col-md-6" data-toggle="tooltip" data-placement="bottom" data-original-title="{!! $affiliate->unit->name !!}">
-                                                        {!! $affiliate->unit->shortened !!}
                                                     </div>
                                                 </div>
                                             </td>
@@ -651,6 +645,7 @@
                                     </table>
 
                                 </div>
+
                             </div>
 
                         </div>
