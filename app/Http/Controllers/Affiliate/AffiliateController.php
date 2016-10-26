@@ -18,6 +18,7 @@ use Muserpol\Affiliate;
 use Muserpol\Contribution;
 use Muserpol\City;
 use Muserpol\Spouse;
+use Muserpol\EconomicComplement;
 
 class AffiliateController extends Controller
 {
@@ -143,10 +144,20 @@ class AffiliateController extends Controller
         }else {
             $affiliate->city_identity_card = '';
         }
+        if ($affiliate->b_city_identity_card_id) {
+            $affiliate->b_city_identity_card = City::idIs($affiliate->b_city_identity_card_id)->first()->shortened;
+        }else {
+            $affiliate->b_city_identity_card = '';
+        }
         if ($affiliate->city_birth_id) {
             $affiliate->city_birth = City::idIs($affiliate->city_birth_id)->first()->name;
         }else {
             $affiliate->city_birth = '';
+        }
+        if ($affiliate->b_city_birth_id) {
+            $affiliate->b_city_birth = City::idIs($affiliate->b_city_birth_id)->first()->name;
+        }else {
+            $affiliate->b_city_birth = '';
         }
         if ($affiliate->city_address_id) {
             $affiliate->city_address = City::idIs($affiliate->city_address_id)->first()->name;
@@ -279,6 +290,8 @@ class AffiliateController extends Controller
                     $affiliate->first_name = trim($request->first_name);
                     $affiliate->second_name = trim($request->second_name);
                     $affiliate->surname_husband = trim($request->surname_husband);
+                    $affiliate->nua = trim($request->nua);
+                    $affiliate->phone = trim($request->phone);
                     $affiliate->birth_date = Util::datePick($request->birth_date);
                     $affiliate->civil_status = trim($request->civil_status);
                     if ($request->city_birth_id) { $affiliate->city_birth_id = $request->city_birth_id; } else { $affiliate->city_birth_id = null; }
@@ -295,17 +308,39 @@ class AffiliateController extends Controller
 
                 break;
 
-                case 'address':
+                case 'beneficiario':
 
-                    if ($request->city_address_id) { $affiliate->city_address_id = $request->city_address_id; } else { $affiliate->city_address_id = null; }
-                    $affiliate->zone = trim($request->zone);
-                    $affiliate->street = trim($request->street);
-                    $affiliate->number_address = trim($request->number_address);
-                    $affiliate->phone = trim($request->phone);
-                    $affiliate->cell_phone = trim($request->cell_phone);
-                    $affiliate->save();
+                $affiliate->b_identity_card = trim($request->b_identity_card);
+                if ($request->b_city_identity_card_id) { $affiliate->b_city_identity_card_id = $request->b_city_identity_card_id; } else { $affiliate->b_city_identity_card_id = null; }
+                if ($request->b_city_birth_id) { $affiliate->b_city_birth_id = $request->b_city_birth_id; } else { $affiliate->b_city_birth_id = null; }
 
-                    $message = "Información de domicilio de afiliado actualizado con éxito";
+                $affiliate->b_last_name = trim($request->b_last_name);
+                $affiliate->b_mothers_last_name = trim($request->b_mothers_last_name);
+                $affiliate->b_first_name = trim($request->b_first_name);
+                $affiliate->b_second_name = trim($request->b_second_name);
+                $affiliate->b_surname_husband = trim($request->b_surname_husband);
+                $affiliate->b_nua = trim($request->b_nua);
+                $affiliate->phone = trim($request->phone);
+                $affiliate->b_birth_date = Util::datePick($request->b_birth_date);
+                $affiliate->b_civil_status = trim($request->b_civil_status);
+
+                $affiliate->save();
+
+                    $message = "Información de beneficiario actualizado con éxito";
+
+                break;
+
+                case 'confirm':
+                $economic_complement = new EconomicComplement;
+                $economic_complement->affiliate_id = $affiliate->id;
+                $economic_complement->user_id = Auth::user()->id;
+                $economic_complement->save();
+
+                $affiliate->registration = $economic_complement->id;
+
+                $affiliate->save();
+
+                    $message = "Listo Para Imprimir";
 
                 break;
 

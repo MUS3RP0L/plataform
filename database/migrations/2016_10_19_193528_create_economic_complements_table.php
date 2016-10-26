@@ -35,16 +35,17 @@ class CreateEconomicComplementsTable extends Migration
 
             $table->bigIncrements('id');
             $table->UnsignedBigInteger('affiliate_id');
+            $table->UnsignedBigInteger('user_id');
             // $table->UnsignedBigInteger('eco_com_modality_id')->nullable();
-            $table->UnsignedBigInteger('city_id')->nullable();
-            $table->date('first_ticket_month_id');
-            $table->date('second_ticket_month_id')->nullable();
-            $table->string('code')->unique()->required();
+            // $table->UnsignedBigInteger('city_id')->nullable();
+            // $table->date('first_ticket_month_id');
+            // $table->date('second_ticket_month_id')->nullable();
+            // $table->string('code')->unique()->required();
 
-            $table->date('reception_date')->nullable();
-            $table->date('review_date')->nullable();
+            // $table->date('reception_date')->nullable();
+            // $table->date('review_date')->nullable();
 
-            $table->enum('semester', ['F', 'S'])->nullable();
+            // $table->enum('semester', ['F', 'S'])->nullable();
             // $table->decimal('total_quotable', 13, 2);
             // $table->decimal('total_additional_quotable', 13, 2);
             // $table->decimal('subtotal', 13, 2);
@@ -54,7 +55,9 @@ class CreateEconomicComplementsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('affiliate_id')->references('id')->on('affiliates')->onDelete('cascade');
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            // $table->foreign('city_id')->references('id')->on('cities');
 
         });
 

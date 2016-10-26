@@ -1,45 +1,68 @@
 @extends('app')
 
 @section('contentheader_title')
-  {!! Breadcrumbs::render('show_affiliate', $affiliate) !!}
+  <div class="row">
+    <div class="col-md-6">
+      {!! Breadcrumbs::render('show_affiliate', $affiliate) !!}
+</div>
+<div class="col-md-2 col-md-offset-2 text-right">
+  {!! Form::model($affiliate, ['method' => 'PATCH', 'route' => ['affiliate.update', $affiliate], 'class' => 'form-horizontal']) !!}
+  <input type="hidden" name="type" value="confirm"/>
+  @if($affiliate->registration)
+    <div class="btn-group" style="margin:0px 1px 12px;" data-toggle="tooltip" data-placement="bottom" data-original-title="Imprimir">
+        <a href="" data-target="#myModal-print-affiliate" class="btn btn-raised btn-success dropdown-toggle enabled" data-toggle="modal">
+            &nbsp;<span class="glyphicon glyphicon-print"></span>&nbsp;
+        </a>
+    </div>
+  @else
+  <div class="btn-group" style="margin:0px 1px 12px;" data-toggle="tooltip" data-placement="bottom" data-original-title="Confirmar">
+      <button type="submit" class="btn btn-raised btn-success dropdown-toggle enabled" data-toggle="modal">
+          &nbsp;<span class="glyphicon glyphicon-ok"></span>&nbsp;
+      </a>
+  </div>
+@endif
+
+
+{!! Form::close() !!}
+
+
+</div>
+<div class="col-md-2 text-right">
+    <a href="{!! url('affiliate') !!}" style="margin:0px 1px 12px;" class="btn btn-raised btn-warning" data-toggle="tooltip" data-placement="bottom" data-original-title="Atrás">
+        &nbsp;<span class="glyphicon glyphicon-share-alt"></span>&nbsp;
+    </a>
+</div>
+</div>
 @endsection
 
 @section('main-content')
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-4 col-md-offset-6">
 
-                    <div class="btn-group" style="margin:-6px 1px 12px;" data-toggle="tooltip" data-placement="top" data-original-title="Imprimir">
-                        <a href="" data-target="#myModal-print-affiliate" class="btn btn-raised btn-success dropdown-toggle enabled" data-toggle="modal">
-                            &nbsp;<span class="glyphicon glyphicon-print"></span>&nbsp;
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-2 text-right">
-                    <a href="{!! url('affiliate') !!}" style="margin:-6px 1px 12px;" class="btn btn-raised btn-warning" data-toggle="tooltip" data-placement="top" data-original-title="Atrás">
-                        &nbsp;<span class="glyphicon glyphicon-share-alt"></span>&nbsp;
-                    </a>
-                </div>
+
             </div>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-11">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Información Personal</h3>
+                                    <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Información de Afiliado</h3>
                                 </div>
+                                @if($affiliate->identity_card)
                                 <div class="col-md-1 text-right" data-toggle="tooltip" data-placement="top" data-original-title="Editar">
                                     <div data-toggle="modal" data-target="#myModal-personal">
                                         <span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>
                                     </div>
                                 </div>
+                              @endif
                             </div>
                         </div>
                         <div class="panel-body" style="font-size: 14px">
                             <div class="row">
+                              @if($affiliate->identity_card)
                                 <div class="col-md-6">
 
                                     <table class="table table-responsive" style="width:100%;">
@@ -47,10 +70,22 @@
                                             <td style="border-top:1px solid #d4e4cd;">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        Carnet Identidad
+                                                        Carnet de Identidad
                                                     </div>
                                                     <div class="col-md-6">
                                                         {!! $affiliate->identity_card !!} {!! $affiliate->city_identity_card !!}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-top:1px solid #d4e4cd;">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        Grado
+                                                    </div>
+                                                    <div class="col-md-6" data-toggle="tooltip" data-placement="bottom" data-original-title="{!! $affiliate->degree->name !!}">
+                                                      {!! $affiliate->degree->shortened !!}
                                                     </div>
                                                 </div>
                                             </td>
@@ -138,18 +173,7 @@
                                 <div class="col-md-6">
 
                                     <table class="table" style="width:100%;">
-                                        <tr>
-                                            <td style="border-top:1px solid #d4e4cd;">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        Grado
-                                                    </div>
-                                                    <div class="col-md-6" data-toggle="tooltip" data-placement="bottom" data-original-title="{!! $affiliate->degree->name !!}"> {!! $affiliate->degree->shortened !!}
 
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
                                         <tr>
                                             <td style="border-top:1px solid #d4e4cd;">
                                                 <div class="row">
@@ -162,6 +186,7 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        @if($affiliate->getShortBirthDate())
                                         <tr>
                                             <td style="border-top:1px solid #d4e4cd;">
                                                 <div class="row">
@@ -174,18 +199,20 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        @endif
                                         <tr>
-                                            <td style="border-top:1px solid #d4e4cd;">
+                                            <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        Sexo
+                                                        CUA/NUA
                                                     </div>
                                                     <div class="col-md-6">
-                                                        {!! $affiliate->getGender() !!}
+                                                        {!! $affiliate->nua !!}
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
+                                        @if($affiliate->affiliate_state_id == 5)
                                         <tr>
                                             <td style="border-top:1px solid #d4e4cd;">
                                                 <div class="row">
@@ -193,7 +220,7 @@
                                                         Estado Civil
                                                     </div>
                                                     <div class="col-md-6">
-                                                        {!! $affiliate->getCivilStatus() !!}
+                                                        {!! $affiliate->civil_status !!}
                                                     </div>
                                                 </div>
                                             </td>
@@ -202,7 +229,7 @@
                                             <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        Lugar Nacimiento
+                                                        Residencia
                                                     </div>
                                                     <div class="col-md-6">
                                                          {!! $affiliate->city_birth !!}
@@ -210,6 +237,22 @@
                                                 </div>
                                             </td>
                                         </tr>
+
+                                        <tr>
+                                            <td style="border-top:1px solid #d4e4cd;">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        Teléfono
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {!! $affiliate->phone !!}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif
+
+                                        {{--
                                         @if($affiliate->reason_death)
                                             <tr>
                                                 <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
@@ -223,297 +266,199 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endif
+                                        @endif --}}
 
                                     </table>
 
                                 </div>
-
+                              @else
+                                  <div class="row text-center">
+                                      <div data-toggle="modal" data-target="#myModal-personal">
+                                          <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Adicionar Datos">
+                                              <img class="circle" src="{!! asset('img/people.png') !!}" width="45px" alt="icon">
+                                          </button>
+                                      </div>
+                                  </div>
+                              @endif
                             </div>
                         </div>
                     </div>
+                    @if($affiliate->affiliate_state_id <> 5)
+                      <div class="panel panel-primary">
+                          <div class="panel-heading">
+                              <div class="row">
+                                  <div class="col-md-11">
+                                      <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Información de Beneficiario</h3>
+                                  </div>
+                                      <div class="col-md-1 text-right" data-toggle="tooltip" data-placement="top" data-original-title="Editar">
+                                          <div data-toggle="modal" data-target="#myModal-spouse">
+                                              <span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>
+                                          </div>
+                                      </div>
+                              </div>
+                          </div>
+                          <div class="panel-body" style="font-size: 14px">
+                              <div class="row" style="margin-bottom:0px;">
 
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-md-11">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Información de Conyuge</h3>
-                                </div>
-                                @if($info_spouse)
-                                    <div class="col-md-1 text-right" data-toggle="tooltip" data-placement="top" data-original-title="Editar">
-                                        <div data-toggle="modal" data-target="#myModal-spouse">
-                                            <span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="panel-body" style="font-size: 14px">
-                            <div class="row" style="margin-bottom:0px;">
+                                      <div class="col-md-6">
 
-                                @if($info_spouse)
+                                          <table class="table" style="width:100%;">
+                                              <tr>
+                                                  <td style="border-top:1px solid #d4e4cd;">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              Carnet Identidad
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                               {!! $affiliate->b_identity_card !!} {!! $affiliate->b_city_identity_card !!}
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td style="border-top:1px solid #d4e4cd;">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              Apellido Paterno
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                               {!! $affiliate->b_last_name !!}
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              Apellido Materno
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                               {!! $affiliate->b_mothers_last_name !!}
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td style="border-top:1px solid #d4e4cd;">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              Primer Nombre
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                              {!! $affiliate->b_first_name !!}
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              <tr>
+                                              </tr>
+                                                  <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              Segundo Nombre
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                              {!! $affiliate->b_second_name !!}
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                          </table>
 
-                                    <div class="col-md-6">
 
-                                        <table class="table" style="width:100%;">
-                                            <tr>
-                                                <td style="border-top:1px solid #d4e4cd;">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            Carnet Identidad
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                             {!! $spouse->identity_card !!}
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-top:1px solid #d4e4cd;">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            Apellido Paterno
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                             {!! $spouse->last_name !!}
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                      </div>
+
+                                      <div class="col-md-6">
+
+                                          <table class="table" style="width:100%;">
+                                            @if ($affiliate->b_surname_husband)
                                             <tr>
                                                 <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            Apellido Materno
+                                                            Apellido de Esposo
                                                         </div>
                                                         <div class="col-md-6">
-                                                             {!! $spouse->mothers_last_name !!}
+                                                            {!! $affiliate->b_surname_husband !!}
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            @if($spouse->date_death)
-                                                <tr>
-                                                    <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                Fecha Deceso
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                 {!! $spouse->getShortDateDeath() !!}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
                                             @endif
-                                        </table>
+                                              <tr>
+                                                  <td style="border-top:1px solid #d4e4cd;">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              Fecha Nacimiento
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                               {!! $affiliate->b_getShortBirthDate() !!}
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              CUA/NUA
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                              {!! $affiliate->b_nua !!}
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td style="border-top:1px solid #d4e4cd;">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              Estado Civil
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                              {!! $affiliate->b_civil_status !!}
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              Residencia
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                               {!! $affiliate->b_city_birth !!}
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                              @if($affiliate->affiliate_state_id <> 5)
+                                              <tr>
+                                                  <td style="border-top:1px solid #d4e4cd;">
+                                                      <div class="row">
+                                                          <div class="col-md-6">
+                                                              Teléfono
+                                                          </div>
+                                                          <div class="col-md-6">
+                                                              {!! $affiliate->phone !!}
+                                                          </div>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                              @endif
 
+                                          </table>
 
-                                    </div>
+                                      </div>
 
-                                    <div class="col-md-6">
+                              </div>
+                          </div>
+                      </div>
 
-                                        <table class="table" style="width:100%;">
-                                            <tr>
-                                                <td style="border-top:1px solid #d4e4cd;">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            Fecha Nacimiento
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                             {!! $spouse->getShortBirthDate() !!}
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-top:1px solid #d4e4cd;">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            Primer Nombre
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            {!! $spouse->first_name !!}
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            <tr>
-                                            </tr>
-                                                <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            Segundo Nombre
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            {!! $spouse->second_name !!}
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @if($spouse->reason_death)
-                                                <tr>
-                                                    <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                Motivo Deceso
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                {!! $spouse->reason_death !!}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        </table>
-
-                                    </div>
-
-                                @else
-                                    <div class="row text-center">
-                                        <div data-toggle="modal" data-target="#myModal-spouse">
-                                            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Adicionar Conyuge">
-                                                <img class="circle" src="{!! asset('img/people.png') !!}" width="45px" alt="icon">
-                                            </button>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
+                    @endif
                 </div>
 
-                <div class="col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-md-11">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-briefcase"></span> Información Policial Actual</h3>
-                                </div>
-                                <div class="col-md-1 text-right" data-toggle="tooltip" data-placement="top" data-original-title="Historial">
-                                    <div  data-toggle="modal" data-target="#myModal-record">
-                                        <span class="glyphicon glyphicon-hourglass"  aria-hidden="true"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-body" style="font-size: 14px">
-                            <div class="row">
-                                <div class="col-md-6">
-
-                                    <table class="table" style="width:100%;">
-                                        <tr>
-                                            <td style="border-top:1px solid #d4e4cd;">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        Estado
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="border-top:1px solid #d4e4cd;">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        Tipo
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        Unidad
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @if($affiliate->date_decommissioned)
-                                            <tr>
-                                                <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            Fecha de Baja
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            {!! $affiliate->getFullDateDecommissioned() !!}
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    </table>
-
-                                </div>
-
-                                <div class="col-md-6">
-
-                                    <table class="table" style="width:100%;">
-                                        <tr>
-                                            <td style="border-top:1px solid #d4e4cd;">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        Fecha de Ingreso
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        {!! $affiliate->getShortDateEntry() !!}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="border-top:1px solid #d4e4cd;">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        Núm. de Matrícula
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        {!! $affiliate->registration !!}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        Núm. de Ítem
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        {!! $affiliate->item !!}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @if($affiliate->reason_decommissioned)
-                                            <tr>
-                                                <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            Motivo Baja
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            {!! $affiliate->reason_decommissioned !!}
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    </table>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                  </div>
             </div>
 
         </div>
@@ -535,7 +480,7 @@
                             <div class="form-group">
                                     {!! Form::label('identity_card', 'Carnet de Identidad', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-5">
-                                    {!! Form::text('identity_card', $affiliate->identity_card, ['class'=> 'form-control', 'required']) !!}
+                                    {!! Form::text('identity_card', $affiliate->identity_card, ['class'=> 'form-control']) !!}
                                     <span class="help-block">Número de CI</span>
                                 </div>
                                     {!! Form::select('city_identity_card_id', $cities_list_short, $affiliate->city_identity_card_id, ['class' => 'col-md-2 combobox form-control']) !!}
@@ -543,7 +488,7 @@
                             <div class="form-group">
                                     {!! Form::label('last_name', 'Apellido Paterno', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::text('last_name', $affiliate->last_name, ['class'=> 'form-control', 'required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    {!! Form::text('last_name', $affiliate->last_name, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                     <span class="help-block">Escriba el Apellido Paterno</span>
                                 </div>
                             </div>
@@ -592,9 +537,40 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                    {!! Form::label('nua', 'CUA/NUA', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::text('nua', $affiliate->nua, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    <span class="help-block">Escriba el número de CUA/NUA</span>
+                                </div>
+                            </div>
+                            @if($affiliate->affiliate_state_id == 5)
+                            <div class="form-group">
                                         {!! Form::label('civil_status', 'Estado Civil', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::select('civil_status', $gender_list, $affiliate->civil_status, ['class' => 'combobox form-control', 'required']) !!}
+                                    {!! Form::text('civil_status', $affiliate->civil_status, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    <span class="help-block">Seleccione el Estado Civil</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                        {!! Form::label('city_birth_id', 'Lugar de Residencia', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::select('city_birth_id', $cities_list, $affiliate->city_birth_id, ['class' => 'combobox form-control']) !!}
+                                    <span class="help-block">Seleccione Departamento</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                    {!! Form::label('phone', 'Teléfono fijo', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::text('phone', $affiliate->phone, ['class'=> 'form-control']) !!}
+                                    <span class="help-block">Escriba el Teléfono</span>
+                                </div>
+                            </div>
+                          @endif
+                            {{-- <div class="form-group">
+                                        {!! Form::label('civil_status', 'Estado Civil', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::select('civil_status', $gender_list, $affiliate->civil_status, ['class' => 'combobox form-control']) !!}
                                     <span class="help-block">Seleccione el Estado Civil</span>
                                 </div>
                             </div>
@@ -604,9 +580,9 @@
                                     {!! Form::select('city_birth_id', $cities_list, $affiliate->city_birth_id, ['class' => 'combobox form-control']) !!}
                                     <span class="help-block">Seleccione Departamento</span>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-offset-5 col-md-4">
                                     <div class="form-group">
                                         <div class="togglebutton">
@@ -616,7 +592,7 @@
                                       </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div data-bind='fadeVisible: DateDeathAffiliateValue, valueUpdate: "afterkeydown"'>
 
@@ -634,7 +610,7 @@
                                 <div class="form-group">
                                         {!! Form::label('reason_death', 'Causa Deceso', ['class' => 'col-md-5 control-label']) !!}
                                     <div class="col-md-6">
-                                        {!! Form::textarea('reason_death', $affiliate->reason_death, ['class'=> 'form-control', 'rows' => '2']) !!}
+                                        {!! Form::textarea('reason_death', $affiliate->reason_death, ['class'=> 'form-control', 'rows' => '1']) !!}
                                         <span class="help-block">Escriba el Motivo de fallecimiento</span>
                                     </div>
                                 </div>
@@ -668,93 +644,98 @@
             </div>
             <div class="modal-body">
 
-                {!! Form::model($spouse, ['method' => 'PATCH', 'route' => ['spouse.update', $affiliate], 'class' => 'form-horizontal']) !!}
+              {!! Form::model($affiliate, ['method' => 'PATCH', 'route' => ['affiliate.update', $affiliate], 'class' => 'form-horizontal']) !!}
+                  <input type="hidden" name="type" value="beneficiario"/>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                    {!! Form::label('identity_card', ' Carnet de Identidad', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    {!! Form::text('identity_card', $spouse->identity_card, ['class'=> 'form-control', 'required']) !!}
-                                    <span class="help-block">Escriba el Carnet de Identidad</span>
+                                    {!! Form::label('b_identity_card', 'Carnet de Identidad', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-5">
+                                    {!! Form::text('b_identity_card', $affiliate->b_identity_card, ['class'=> 'form-control']) !!}
+                                    <span class="help-block">Número de CI</span>
                                 </div>
+                                    {!! Form::select('b_city_identity_card_id', $cities_list_short, $affiliate->b_city_identity_card_id, ['class' => 'col-md-2 combobox form-control']) !!}
                             </div>
+
                             <div class="form-group">
-                                    {!! Form::label('last_name', 'Apellido Paterno', ['class' => 'col-md-5 control-label']) !!}
+                                    {!! Form::label('b_last_name', 'Apellido Paterno', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::text('last_name', $spouse->last_name, ['class'=> 'form-control','required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    {!! Form::text('b_last_name', $affiliate->b_last_name, ['class'=> 'form-control','required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                     <span class="help-block">Escriba el Apellido Paterno</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                    {!! Form::label('mothers_last_name', 'Apellido Materno', ['class' => 'col-md-5 control-label']) !!}
+                                    {!! Form::label('b_mothers_last_name', 'Apellido Materno', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::text('mothers_last_name', $spouse->mothers_last_name, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    {!! Form::text('b_mothers_last_name', $affiliate->b_mothers_last_name, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                     <span class="help-block">Escriba el  Apellido Materno</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                    {!! Form::label('first_name', 'Primer Nombre', ['class' => 'col-md-5 control-label']) !!}
+                                    {!! Form::label('b_first_name', 'Primer Nombre', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::text('first_name', $spouse->first_name, ['class'=> 'form-control', 'required','onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    {!! Form::text('b_first_name', $affiliate->b_first_name, ['class'=> 'form-control','onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                     <span class="help-block">Escriba el Primer Nombre</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                    {!! Form::label('second_name', 'Segundo Nombre', ['class' => 'col-md-5 control-label']) !!}
+                                    {!! Form::label('b_second_name', 'Segundo Nombre', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::text('second_name', $spouse->second_name, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    {!! Form::text('b_second_name', $affiliate->b_second_name, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                     <span class="help-block">Escriba el Segundo Nombre</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-6">
+                          <div class="form-group">
+                                  {!! Form::label('b_surname_husband', 'Apellido de Esposo', ['class' => 'col-md-5 control-label']) !!}
+                              <div class="col-md-7">
+                                  {!! Form::text('b_surname_husband', $affiliate->b_surname_husband, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                  <span class="help-block">Escriba el Apellido de Esposo (Opcional)</span>
+                              </div>
+                          </div>
                             <div class="form-group">
-                                    {!! Form::label('birth_date', 'FECHA NACIMIENTO', ['class' => 'col-md-5 control-label']) !!}
+                                    {!! Form::label('b_birth_date', 'Fecha Nacimiento', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
                                     <div class="input-group">
-                                        <input type="text" class="form-control datepicker" name="birth_date" value="{!! $spouse->getEditBirthDate() !!}">
+                                        <input type="text" class="form-control datepicker" name="b_birth_date" value="{!! $affiliate->b_getEditBirthDate() !!}">
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-offset-5 col-md-4">
-                                    <div class="form-group">
-                                        <div class="togglebutton">
-                                          <label>
-                                            <input type="checkbox" data-bind="checked: DateDeathSpouseValue" name="DateDeathSpouseCheck"> Fallecido
-                                          </label>
-                                      </div>
-                                    </div>
+                            <div class="form-group">
+                                    {!! Form::label('b_nua', 'CUA/NUA', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::text('b_nua', $affiliate->b_nua, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    <span class="help-block">Escriba el número de CUA/NUA</span>
                                 </div>
                             </div>
-
-                            <div data-bind='fadeVisible: DateDeathSpouseValue, valueUpdate: "afterkeydown"'>
-
-                                <div class="form-group">
-                                        {!! Form::label('date_death', 'Fecha Deceso', ['class' => 'col-md-5 control-label']) !!}
-                                    <div class="col-md-7">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control datepicker" name="date_death" value="{!! $spouse->getEditDateDeath() !!}">
-                                            <div class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                        {!! Form::label('reason_death', 'Causa Deceso', ['class' => 'col-md-5 control-label']) !!}
-                                    <div class="col-md-6">
-                                        {!! Form::textarea('reason_death', $spouse->reason_death, ['class'=> 'form-control', 'rows' => '2']) !!}
-                                        <span class="help-block">Escriba el Motivo de fallecimiento</span>
-                                    </div>
+                            <div class="form-group">
+                                        {!! Form::label('b_civil_status', 'Estado Civil', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::text('b_civil_status', $affiliate->b_civil_status, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    <span class="help-block">Seleccione el Estado Civil</span>
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                        {!! Form::label('b_city_birth_id', 'Lugar de Residencia', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-7">
+                                    {!! Form::select('b_city_birth_id', $cities_list, $affiliate->b_city_birth_id, ['class' => 'combobox form-control']) !!}
+                                    <span class="help-block">Seleccione Departamento</span>
+                                </div>
+                            </div>
+                            @if($affiliate->affiliate_state_id <> 5)
+                              <div class="form-group">
+                                    {!! Form::label('phone', 'Teléfono fijo', ['class' => 'col-md-5 control-label']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::text('phone', $affiliate->phone, ['class'=> 'form-control']) !!}
+                                    <span class="help-block">Escriba el Teléfono fijo</span>
+                                </div>
+                            </div>
+                          @endif
                         </div>
                     </div>
 
@@ -782,7 +763,7 @@
                 <h4 class="modal-title">Reporte Afiliado</h4>
             </div>
             <div class="modal-body">
-                @if($affiliate->reason_death)
+                @if($affiliate->affiliate_state_id == 5)
                   <iframe src="{!! url('print_declaracion1/' . $affiliate->id) !!}" width="99%" height="1200"></iframe>
                 @else
                   <iframe src="{!! url('print_declaracion2/' . $affiliate->id) !!}" width="99%" height="1200"></iframe>
@@ -812,11 +793,9 @@
     });
 
     var affiliate = {!! $affiliate !!};
-    var spouse = {!! $spouse !!};
 
     var Model = function() {
         this.DateDeathAffiliateValue = ko.observable(affiliate.date_death ? true : false);
-        this.DateDeathSpouseValue = ko.observable(spouse.date_death ? true : false);
     };
 
     ko.bindingHandlers.fadeVisible = {

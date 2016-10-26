@@ -134,12 +134,22 @@ class Affiliate extends Model
 
     public function getTittleName()
     {
-        return Util::ucw($this->first_name) . ' ' . Util::ucw($this->second_name)  . ' ' . Util::ucw($this->last_name) . ' ' . Util::ucw($this->mothers_last_name) . ' ' . Util::ucw($this->surname_husband);
+        return $this->degree->shortened . ' ' . Util::ucw($this->last_name) . ' ' . Util::ucw($this->mothers_last_name) . ' ' . Util::ucw($this->surname_husband) . ' ' . Util::ucw($this->first_name) . ' ' . Util::ucw($this->second_name);
+    }
+
+    public function getTittleNamePrint()
+    {
+        return $this->degree->shortened . ' ' . $this->last_name . ' ' . $this->mothers_last_name . ' ' . $this->surname_husband . ' ' . $this->first_name . ' ' . $this->second_name;
     }
 
     public function getShortBirthDate()
     {
         return Util::getDateShort($this->birth_date);
+    }
+
+    public function b_getShortBirthDate()
+    {
+        return Util::getDateShort($this->b_birth_date);
     }
 
     public function getShortDateDeath()
@@ -219,6 +229,10 @@ class Affiliate extends Model
     public function getEditBirthDate()
     {
         return Util::getDateEdit($this->birth_date);
+    }
+    public function b_getEditBirthDate()
+    {
+        return Util::getDateEdit($this->b_birth_date);
     }
 
     public function getEditDateDeath()
@@ -365,7 +379,12 @@ class Affiliate extends Model
 
     public function getFullDateNactoPrint()
     {
-        return Util::getfulldate($this->fech_nac);
+        return Util::getDateShort($this->birth_date);
+    }
+
+    public function b_getFullDateNactoPrint()
+    {
+        return Util::getDateShort($this->b_birth_date);
     }
 
     public function getFull_fech_decetoPrint()

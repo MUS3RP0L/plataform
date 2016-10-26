@@ -146,7 +146,8 @@ class CreateAffiliatesTable extends Migration
             $table->string('second_name')->nullable();
             $table->string('name')->nullable();
             $table->string('surname_husband')->nullable();
-            $table->enum('civil_status', ['C', 'S', 'V', 'D'])->nullable();
+            // $table->enum('civil_status', ['C', 'S', 'V', 'D'])->nullable();
+            $table->string('civil_status')->nullable();
             $table->enum('gender', ['M', 'F']);
             $table->date('birth_date')->nullable();
             $table->date('date_entry')->nullable();
@@ -165,6 +166,7 @@ class CreateAffiliatesTable extends Migration
 
 
             $table->UnsignedBigInteger('b_city_identity_card_id')->nullable();
+            $table->UnsignedBigInteger('b_city_birth_id')->nullable();
             $table->string('b_identity_card')->required();
             $table->string('b_last_name')->nullable();
             $table->string('b_mothers_last_name')->nullable();
@@ -172,6 +174,7 @@ class CreateAffiliatesTable extends Migration
             $table->string('b_second_name')->nullable();
             $table->string('b_name')->nullable();
             $table->string('b_surname_husband')->nullable();
+            $table->string('b_civil_status')->nullable();
             $table->date('b_birth_date')->nullable();
             $table->date('b_date_death')->nullable();
             $table->string('b_reason_death')->nullable();
@@ -184,6 +187,7 @@ class CreateAffiliatesTable extends Migration
             $table->foreign('affiliate_type_id')->references('id')->on('affiliate_types');
             $table->foreign('city_identity_card_id')->references('id')->on('cities');
             $table->foreign('city_birth_id')->references('id')->on('cities');
+            $table->foreign('b_city_birth_id')->references('id')->on('cities');
             $table->foreign('degree_id')->references('id')->on('degrees');
             $table->foreign('unit_id')->references('id')->on('units');
             $table->foreign('category_id')->references('id')->on('categories');
