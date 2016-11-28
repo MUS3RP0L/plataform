@@ -10,7 +10,7 @@
   <input type="hidden" name="type" value="confirm"/>
   @if($affiliate->registration)
     <div class="btn-group" style="margin:0px 1px 12px;" data-toggle="tooltip" data-placement="bottom" data-original-title="Imprimir">
-        <a href="" data-target="#myModal-print-affiliate" class="btn btn-raised btn-success dropdown-toggle enabled" data-toggle="modal">
+        <a href="" class="btn btn-raised btn-success dropdown-toggle enabled" data-toggle="modal" value="Print" onclick="printTrigger('iFramePdf');" >
             &nbsp;<span class="glyphicon glyphicon-print"></span>&nbsp;
         </a>
     </div>
@@ -53,9 +53,9 @@
                                 </div>
                                 @if($affiliate->identity_card)
                                 <div class="col-md-1 text-right" data-toggle="tooltip" data-placement="top" data-original-title="Editar">
-                                    <div data-toggle="modal" data-target="#myModal-personal">
-                                        <span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>
-                                    </div>
+                                    <a href="javascript:void(0)" class="btn btn-raised btn-xs" data-toggle="modal" data-target="#myModal-personal">&nbsp;&nbsp;
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;
+                                    </a>
                                 </div>
                               @endif
                             </div>
@@ -90,6 +90,7 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        @if($affiliate->affiliate_state_id == 4)
                                         <tr>
                                             <td style="border-top:1px solid #d4e4cd;">
                                                 <div class="row">
@@ -138,7 +139,21 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @if ($affiliate->surname_husband)
+                                        @else
+                                        <tr>
+                                            <td style="border-top:1px solid #d4e4cd;">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        Nombre Completo
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {!! $affiliate->name !!}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        <!-- @if ($affiliate->surname_husband)
                                         <tr>
                                             <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
                                                 <div class="row">
@@ -151,7 +166,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif
+                                        @endif -->
                                         @if($affiliate->date_death)
                                             <tr>
                                                 <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
@@ -319,15 +334,15 @@
                                                   <td style="border-top:1px solid #d4e4cd;">
                                                       <div class="row">
                                                           <div class="col-md-6">
-                                                              Apellido Paterno
+                                                                Nombre Completo
                                                           </div>
                                                           <div class="col-md-6">
-                                                               {!! $affiliate->b_last_name !!}
+                                                               {!! $affiliate->b_name !!}
                                                           </div>
                                                       </div>
                                                   </td>
                                               </tr>
-                                              <tr>
+                                              <!-- <tr>
                                                   <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
                                                       <div class="row">
                                                           <div class="col-md-6">
@@ -362,7 +377,7 @@
                                                           </div>
                                                       </div>
                                                   </td>
-                                              </tr>
+                                              </tr> -->
                                           </table>
 
 
@@ -371,7 +386,7 @@
                                       <div class="col-md-6">
 
                                           <table class="table" style="width:100%;">
-                                            @if ($affiliate->b_surname_husband)
+                                            <!-- @if ($affiliate->b_surname_husband)
                                             <tr>
                                                 <td style="border-top:1px solid #d4e4cd;border-bottom:1px solid #d4e4cd;">
                                                     <div class="row">
@@ -384,7 +399,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            @endif
+                                            @endif -->
                                               <tr>
                                                   <td style="border-top:1px solid #d4e4cd;">
                                                       <div class="row">
@@ -404,7 +419,7 @@
                                                               CUA/NUA
                                                           </div>
                                                           <div class="col-md-6">
-                                                              {!! $affiliate->b_nua !!}
+                                                              {!! $affiliate->nua !!}
                                                           </div>
                                                       </div>
                                                   </td>
@@ -485,6 +500,8 @@
                                 </div>
                                     {!! Form::select('city_identity_card_id', $cities_list_short, $affiliate->city_identity_card_id, ['class' => 'col-md-2 combobox form-control']) !!}
                             </div>
+                            
+                            @if($affiliate->affiliate_state_id == 4)
                             <div class="form-group">
                                     {!! Form::label('last_name', 'Apellido Paterno', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
@@ -502,7 +519,7 @@
                             <div class="form-group">
                                     {!! Form::label('first_name', 'Primer Nombre', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::text('first_name', $affiliate->first_name, ['class'=> 'form-control','required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    {!! Form::text('first_name', $affiliate->first_name, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                     <span class="help-block">Escriba el  Primer Nombre</span>
                                 </div>
                             </div>
@@ -513,15 +530,25 @@
                                     <span class="help-block">Escriba el Segundo Nombre</span>
                                 </div>
                             </div>
+                            @else
+                            <div class="form-group">
+                                    {!! Form::label('name', 'Nombre Completo', ['class' => 'col-md-6 control-label']) !!}
+                                <div class="col-md-12">
+                                    {!! Form::text('name', $affiliate->name, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    <span class="help-block">Escriba el Nombre</span>
+                                </div>
+                            </div>
+                            @endif
                             @if ($affiliate->sex == 'F')
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                         {!! Form::label('surname_husband', 'Apellido de Esposo', ['class' => 'col-md-5 control-label']) !!}
                                     <div class="col-md-7">
                                         {!! Form::text('surname_husband', $affiliate->surname_husband, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                         <span class="help-block">Escriba el Apellido de Esposo (Opcional)</span>
                                     </div>
-                                </div>
+                                </div> -->
                             @endif
+
                         </div>
 
                         <div class="col-md-6">
@@ -529,7 +556,7 @@
                                     {!! Form::label('birth_date', 'Fecha de Nacimiento', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
                         			<div class="input-group">
-                                        <input type="text" class="form-control datepicker" name="birth_date" value="{!! $affiliate->getEditBirthDate() !!}">
+                                        <input type="text" class="form-control datepicker" name="birth_date" value="{!! $affiliate->getEditBirthDate() !!}" required>
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </div>
@@ -539,22 +566,22 @@
                             <div class="form-group">
                                     {!! Form::label('nua', 'CUA/NUA', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::text('nua', $affiliate->nua, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    {!! Form::text('nua', $affiliate->nua, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()', 'required']) !!}
                                     <span class="help-block">Escriba el número de CUA/NUA</span>
                                 </div>
                             </div>
                             @if($affiliate->affiliate_state_id == 5)
                             <div class="form-group">
                                         {!! Form::label('civil_status', 'Estado Civil', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    {!! Form::text('civil_status', $affiliate->civil_status, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                <div class="col-md-6">
+                                    {!! Form::text('civil_status', $affiliate->civil_status, ['class'=> 'form-control', 'required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                     <span class="help-block">Seleccione el Estado Civil</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                         {!! Form::label('city_birth_id', 'Lugar de Residencia', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::select('city_birth_id', $cities_list, $affiliate->city_birth_id, ['class' => 'combobox form-control']) !!}
+                                    {!! Form::select('city_birth_id', $cities_list, $affiliate->city_birth_id, ['class' => 'combobox form-control', 'required']) !!}
                                     <span class="help-block">Seleccione Departamento</span>
                                 </div>
                             </div>
@@ -562,14 +589,14 @@
                             <div class="form-group">
                                     {!! Form::label('phone', 'Teléfono fijo', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::text('phone', $affiliate->phone, ['class'=> 'form-control']) !!}
+                                    {!! Form::text('phone', $affiliate->phone, ['class'=> 'form-control', 'required']) !!}
                                     <span class="help-block">Escriba el Teléfono</span>
                                 </div>
                             </div>
                           @endif
                             {{-- <div class="form-group">
                                         {!! Form::label('civil_status', 'Estado Civil', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
+                                <div class="col-md-6">
                                     {!! Form::select('civil_status', $gender_list, $affiliate->civil_status, ['class' => 'combobox form-control']) !!}
                                     <span class="help-block">Seleccione el Estado Civil</span>
                                 </div>
@@ -658,13 +685,13 @@
                             </div>
 
                             <div class="form-group">
-                                    {!! Form::label('b_last_name', 'Apellido Paterno', ['class' => 'col-md-5 control-label']) !!}
-                                <div class="col-md-7">
-                                    {!! Form::text('b_last_name', $affiliate->b_last_name, ['class'=> 'form-control','required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
-                                    <span class="help-block">Escriba el Apellido Paterno</span>
+                                    {!! Form::label('b_name', 'Nombre Completo', ['class' => 'col-md-6 control-label']) !!}
+                                <div class="col-md-12">
+                                    {!! Form::text('b_name', $affiliate->b_name, ['class'=> 'form-control','required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    <span class="help-block">Escriba el Nombre</span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                     {!! Form::label('b_mothers_last_name', 'Apellido Materno', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
                                     {!! Form::text('b_mothers_last_name', $affiliate->b_mothers_last_name, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
@@ -684,22 +711,22 @@
                                     {!! Form::text('b_second_name', $affiliate->b_second_name, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                     <span class="help-block">Escriba el Segundo Nombre</span>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="col-md-6">
-                          <div class="form-group">
+                        <!--   <div class="form-group">
                                   {!! Form::label('b_surname_husband', 'Apellido de Esposo', ['class' => 'col-md-5 control-label']) !!}
                               <div class="col-md-7">
                                   {!! Form::text('b_surname_husband', $affiliate->b_surname_husband, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                   <span class="help-block">Escriba el Apellido de Esposo (Opcional)</span>
                               </div>
-                          </div>
+                          </div> -->
                             <div class="form-group">
                                     {!! Form::label('b_birth_date', 'Fecha Nacimiento', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
                                     <div class="input-group">
-                                        <input type="text" class="form-control datepicker" name="b_birth_date" value="{!! $affiliate->b_getEditBirthDate() !!}">
+                                        <input type="text" class="form-control datepicker" name="b_birth_date" value="{!! $affiliate->b_getEditBirthDate() !!}" required>
                                         <div class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </div>
@@ -707,23 +734,23 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                    {!! Form::label('b_nua', 'CUA/NUA', ['class' => 'col-md-5 control-label']) !!}
+                                    {!! Form::label('nua', 'CUA/NUA', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::text('b_nua', $affiliate->b_nua, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    {!! Form::text('nua', $affiliate->nua, ['class'=> 'form-control','required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                     <span class="help-block">Escriba el número de CUA/NUA</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                         {!! Form::label('b_civil_status', 'Estado Civil', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::text('b_civil_status', $affiliate->b_civil_status, ['class'=> 'form-control', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
+                                    {!! Form::text('b_civil_status', $affiliate->b_civil_status, ['class'=> 'form-control','required', 'onkeyup' => 'this.value=this.value.toUpperCase()']) !!}
                                     <span class="help-block">Seleccione el Estado Civil</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                         {!! Form::label('b_city_birth_id', 'Lugar de Residencia', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-7">
-                                    {!! Form::select('b_city_birth_id', $cities_list, $affiliate->b_city_birth_id, ['class' => 'combobox form-control']) !!}
+                                    {!! Form::select('b_city_birth_id', $cities_list, $affiliate->b_city_birth_id, ['class' => 'combobox form-control','required']) !!}
                                     <span class="help-block">Seleccione Departamento</span>
                                 </div>
                             </div>
@@ -731,7 +758,7 @@
                               <div class="form-group">
                                     {!! Form::label('phone', 'Teléfono fijo', ['class' => 'col-md-5 control-label']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::text('phone', $affiliate->phone, ['class'=> 'form-control']) !!}
+                                    {!! Form::text('phone', $affiliate->phone, ['class'=> 'form-control','required']) !!}
                                     <span class="help-block">Escriba el Teléfono fijo</span>
                                 </div>
                             </div>
@@ -764,9 +791,9 @@
             </div>
             <div class="modal-body">
                 @if($affiliate->affiliate_state_id == 5)
-                  <iframe src="{!! url('print_declaracion1/' . $affiliate->id) !!}" width="99%" height="1200"></iframe>
+                  <iframe src="{!! url('print_declaracion1/' . $affiliate->id) !!}" width="99%" height="1200" id="iFramePdf"></iframe>
                 @else
-                  <iframe src="{!! url('print_declaracion2/' . $affiliate->id) !!}" width="99%" height="1200"></iframe>
+                  <iframe src="{!! url('print_declaracion2/' . $affiliate->id) !!}" width="99%" height="1200" id="iFramePdf"></iframe>
                 @endif
             </div>
         </div>
@@ -778,6 +805,12 @@
 @push('scripts')
 
 <script>
+
+    function printTrigger(elementId) {
+        var getMyFrame = document.getElementById(elementId);
+        getMyFrame.focus();
+        getMyFrame.contentWindow.print();
+    }
 
     $(document).ready(function(){
         $('.combobox').combobox();

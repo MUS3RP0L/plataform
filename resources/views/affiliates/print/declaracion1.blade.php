@@ -15,7 +15,7 @@ Formulario Nº 1
 
               <tr>
                 <th class="grand service"><h5><b>NOMBRE Y APELLIDOS</h5></b></th>
-                <td><h4>{!! $affiliate->getTittleNamePrint() !!}</h4></td>
+                <td><h4>{!! $affiliate->degree->shortened !!} {!! $affiliate->name !!}</h4></td>
               </tr>
               <tr>
                 <th class="grand service"><h5><b>CARNET DE IDENTIDAD</b></h5></th>
@@ -36,7 +36,7 @@ Formulario Nº 1
               </tr>
 
   </table>
-  <p align="justify"> Yo, <b>{!! $affiliate->getFullNametoPrint() !!}</b> boliviano (a) de nacimiento con Cédula de Identidad <b>N° {!! $affiliate->identity_card !!} {!! $affiliate->city_identity_card !!}</b> .
+  <p align="justify"> Yo, <b>{!! $affiliate->name !!}</b> boliviano (a) de nacimiento con Cédula de Identidad <b>N° {!! $affiliate->identity_card !!} {!! $affiliate->city_identity_card !!}</b> .
     con estado civil <b>{!! $affiliate->civil_status !!}</b> y con residencia actualmente en el Departamento de <b>{!! $affiliate->city_birth !!}</b>.; mayor de edad,
     y hábil por derecho; consiente de la responsabilidad que asumo ante la Mutual de Servicios al Policía – MUSERPOL,
     de manera voluntaria y sin que medie ningún tipo de presión, mediante la presente, <b>DECLARO LO SIGUIENTE:</b>
@@ -82,7 +82,7 @@ Formulario Nº 1
 
           </tr>
           <tr>
-            <th class="info" style="border: 0px;text-align:center;">{!! $affiliate->getFullNametoPrint() !!}<br>C.I. {!! $affiliate->identity_card !!} Telefono. {!! $affiliate->phone !!}</th>
+            <th class="info" style="border: 0px;text-align:center;">{!! $affiliate->name !!}<br>C.I. {!! $affiliate->identity_card !!} Telefono. {!! $affiliate->phone !!}</th>
             <th class="info" style="border: 0px;text-align:center;">Huella Digital Pulgar Derecho</th>
             <th class="info" style="border: 0px;text-align:center;width: 15%;"></th>
           </tr>

@@ -43,7 +43,7 @@ Formulario Nº 2
   </tr>
   <tr>
   <th class="info" style="text-align:center;"><h4>{!! $affiliate->identity_card !!} {!! $affiliate->city_identity_card !!}</h4></th>
-  <th class="info" style="text-align:center;"><h4>{!! $affiliate->degree->shortened !!} {!! $affiliate->getTittleNamePrint() !!}</h4></th>
+  <th class="info" style="text-align:center;"><h4>{!! $affiliate->getTittleNamePrint() !!}</h4></th>
   <th class="info" style="text-align:center;width: 16%;"><h4>{!! $affiliate->getFullDateNactoPrint() !!}</h4></th>
   <th class="info" style="text-align:center;"><h4>{!! strtoupper($affiliate->eco_com_modality->name) !!}</h4></th>
   <th class="info" style="text-align:center;"><h4>{!! $affiliate->nua !!}</h4></th>

@@ -235,36 +235,13 @@ class AffiliateController extends Controller
     {
         $rules = [
 
-            'last_name' => 'min:3|regex:/^[a-záéíóúàèìòùäëïöüñ\s]+$/i',
-            'mothers_last_name' => 'min:3|regex:/^[a-záéíóúàèìòùäëïöüñ\s]+$/i',
-            'first_name' => 'min:3|regex:/^[a-záéíóúàèìòùäëïöüñ\s]+$/i',
-            'second_name' => 'min:3|regex:/^[a-záéíóúàèìòùäëïöüñ\s]+$/i',
-            'surname_husband' => 'min:3|regex:/^[a-záéíóúàèìòùäëïöüñ\s]+$/i',
-            'phone' =>'numeric',
-            'cell_phone' =>'numeric'
+            'last_name' => 'min:3',
 
         ];
 
         $messages = [
 
             'last_name.min' => 'El mínimo de caracteres permitidos para apellido paterno es 3',
-            'last_name.regex' => 'Sólo se aceptan letras para apellido paterno',
-
-            'mothers_last_name.min' => 'El mínimo de caracteres permitidos para apellido materno es 3',
-            'mothers_last_name.regex' => 'Sólo se aceptan letras para apellido materno',
-
-            'first_name.min' => 'El mínimo de caracteres permitidos para primer nombre es 3',
-            'first_name.regex' => 'Sólo se aceptan letras para primer nombre',
-
-            'second_name.min' => 'El mínimo de caracteres permitidos para teléfono de usuario es 3',
-            'second_name.regex' => 'Sólo se aceptan letras para segundo nombre',
-
-            'surname_husband.min' => 'El mínimo de caracteres permitidos para estado civil es 3',
-            'surname_husband.regex' => 'Sólo se aceptan letras para estado civil',
-
-            'phone.numeric' => 'Sólo se aceptan números para teléfono',
-
-            'cell_phone.numeric' => 'Sólo se aceptan números para celular'
 
         ];
 
@@ -285,12 +262,15 @@ class AffiliateController extends Controller
 
                     $affiliate->identity_card = trim($request->identity_card);
                     if ($request->city_identity_card_id) { $affiliate->city_identity_card_id = $request->city_identity_card_id; } else { $affiliate->city_identity_card_id = null; }
+                    $affiliate->name = trim($request->name);
                     $affiliate->last_name = trim($request->last_name);
                     $affiliate->mothers_last_name = trim($request->mothers_last_name);
                     $affiliate->first_name = trim($request->first_name);
                     $affiliate->second_name = trim($request->second_name);
                     $affiliate->surname_husband = trim($request->surname_husband);
+
                     $affiliate->nua = trim($request->nua);
+
                     $affiliate->phone = trim($request->phone);
                     $affiliate->birth_date = Util::datePick($request->birth_date);
                     $affiliate->civil_status = trim($request->civil_status);
@@ -314,13 +294,15 @@ class AffiliateController extends Controller
                 if ($request->b_city_identity_card_id) { $affiliate->b_city_identity_card_id = $request->b_city_identity_card_id; } else { $affiliate->b_city_identity_card_id = null; }
                 if ($request->b_city_birth_id) { $affiliate->b_city_birth_id = $request->b_city_birth_id; } else { $affiliate->b_city_birth_id = null; }
 
+                $affiliate->b_name = trim($request->b_name);
                 $affiliate->b_last_name = trim($request->b_last_name);
                 $affiliate->b_mothers_last_name = trim($request->b_mothers_last_name);
                 $affiliate->b_first_name = trim($request->b_first_name);
                 $affiliate->b_second_name = trim($request->b_second_name);
                 $affiliate->b_surname_husband = trim($request->b_surname_husband);
-                $affiliate->b_nua = trim($request->b_nua);
-                $affiliate->phone = trim($request->phone);
+                $affiliate->nua = trim($request->nua);
+                if ($request->phone) {$affiliate->phone = $request->phone;}
+
                 $affiliate->b_birth_date = Util::datePick($request->b_birth_date);
                 $affiliate->b_civil_status = trim($request->b_civil_status);
 

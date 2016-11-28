@@ -134,7 +134,7 @@ class Affiliate extends Model
 
     public function getTittleName()
     {
-        return $this->degree->shortened . ' ' . Util::ucw($this->last_name) . ' ' . Util::ucw($this->mothers_last_name) . ' ' . Util::ucw($this->surname_husband) . ' ' . Util::ucw($this->first_name) . ' ' . Util::ucw($this->second_name);
+        return $this->degree->shortened . ' ' . Util::ucw($this->name);
     }
 
     public function getTittleNamePrint()
